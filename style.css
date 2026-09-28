@@ -20,3 +20,12 @@ figcaption{text-align:right;font-size:12px;color:var(--muted);margin-top:6px}
 .nav.prev{left:12px;top:50%;transform:translateY(-50%)}
 .nav.next{right:12px;top:50%;transform:translateY(-50%)}
 .close{top:12px;right:12px;font-size:18px!important}
+main.landing{max-width:760px;margin:0 auto;padding:48px 16px 60px;display:flex;flex-direction:column;gap:28px}
+main.landing h1{font-size:20px;font-weight:700;color:var(--muted)}
+.courses{display:flex;flex-direction:column;gap:16px}
+.course-card{display:flex;align-items:center;gap:18px;padding:20px;background:var(--bar);border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--text);transition:border-color .15s,transform .15s}
+.course-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.course-card .num{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:#16211c;color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;border:1px solid var(--accent)}
+.course-card .course-body{display:flex;flex-direction:column;gap:4px;min-width:0}
+.course-title{font-weight:700;font-size:16px}
+.course-desc{font-size:13px;color:var(--muted)}
