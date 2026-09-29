@@ -181,6 +181,7 @@
   .slide.tight { padding-top: clamp(16px, 3.5vh, 40px); padding-bottom: clamp(16px, 3.5vh, 40px); }
   .slide.tight h2 { margin-bottom: clamp(10px, 1.8vh, 20px); }
   .win.code pre { font-size: clamp(12px, 1.05vw, 15px); line-height: 1.55; max-height: clamp(220px, 50vh, 620px); overflow: auto; tab-size: 2; }
+  .win pre.wrap { white-space: pre-wrap; font-family: var(--font); font-size: clamp(14px, 1.4vw, 19px); }
 
   /* Steps shown above a code window */
   .howto { list-style: none; margin: 0 0 clamp(10px, 1.8vh, 18px); padding: 0; display: flex; flex-wrap: wrap; gap: 8px; counter-reset: hw; }
@@ -366,8 +367,17 @@
   }
   .part.p2 .pnum { color: var(--g-green); }
   .part.p3 .pnum { color: var(--g-red); }
+  .part.p4 .pnum { color: var(--g-yellow); }
   .plabel { margin: 0 0 8px; font-size: clamp(18px, 2.2vw, 28px); font-weight: 700; color: var(--muted); }
   .part h2 { margin: 0; font-size: clamp(32px, 5.6vw, 72px); }
+  .demo-link {
+    display: inline-block; margin-top: clamp(18px, 3vh, 32px);
+    padding: 12px 22px; border-radius: 999px;
+    background: var(--accent); color: var(--stage); text-decoration: none;
+    font-weight: 700; font-size: clamp(15px, 1.7vw, 22px);
+  }
+  .demo-link:hover { filter: brightness(1.08); }
+  .demo-link:focus-visible { outline: 3px solid var(--g-yellow); outline-offset: 3px; }
 
   /* File roles flow */
   .flow { display: flex; align-items: stretch; gap: clamp(8px, 1.6vw, 20px); }
@@ -439,6 +449,32 @@
       </div>
     </section>
 
+    <!-- Intro: why teachers build their own apps -->
+    <section class="slide" aria-label="La era de la IA">
+      <div class="inner">
+        <h2>En la era de la IA, el docente crea sus propias apps<span class="ko">AI 시대, 교사가 필요한 앱을 직접 만들어 쓰는 시대</span></h2>
+        <div class="rows">
+          <div class="row"><h3>Antes<span class="ko">예전</span></h3><p>Buscar una app parecida o esperar a que alguien la hiciera<span class="ko">비슷한 앱을 찾거나, 누군가 만들어 주기를 기다림</span></p></div>
+          <div class="row"><h3>Ahora<span class="ko">지금</span></h3><p>Con la IA, tú mismo creas la app que tu clase necesita<span class="ko">AI와 함께 우리 반에 딱 맞는 앱을 직접 만듦</span></p></div>
+          <div class="row"><h3>La clave<span class="ko">핵심</span></h3><p>No hace falta ser programador: basta una buena idea<span class="ko">프로그래머가 아니어도 좋은 아이디어만 있으면 충분</span></p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro: today's plan -->
+    <section class="slide" aria-label="Lo que haremos hoy">
+      <div class="inner">
+        <h2>Lo que haremos hoy<span class="ko">오늘 함께 할 일</span></h2>
+        <ol class="steps">
+          <li><span><b>Ruleta</b> · tu primera app web<span class="ko">돌림판 · 나의 첫 웹앱</span></span></li>
+          <li><span><b>Tablero de mensajes</b> · guardar datos en una hoja de cálculo<span class="ko">게시판 · 스프레드시트에 데이터 저장하기</span></span></li>
+          <li><span><b>Esquiva los misiles</b> · un juego con ranking<span class="ko">미사일 피하기 · 랭킹이 있는 게임</span></span></li>
+          <li><span><b>Tu propia app</b> · crea tu idea y compártela<span class="ko">나만의 웹앱 · 아이디어를 만들고 함께 공유하기</span></span></li>
+        </ol>
+        <p class="note">En cada práctica solo copias y pegas el código: ¡nadie se queda atrás!<span class="ko">실습마다 코드를 복사해서 붙여넣기만 하면 돼요. 누구나 따라 할 수 있어요!</span></p>
+      </div>
+    </section>
+
     <!-- Part 1 divider -->
     <section class="slide" aria-label="Parte 1">
       <div class="inner part">
@@ -446,6 +482,7 @@
         <div>
           <p class="plabel">Parte 1 · 파트 1</p>
           <h2>Introducción a Apps Script y la ruleta<span class="ko">Apps Script 소개와 돌림판 만들기</span></h2>
+          <a class="demo-link" href="https://script.google.com/macros/s/AKfycbyF8HLQw0EXPRY7GPhDf6Nev0-ZHLDKTKwvOjspv_y95IhIkMnrdUOsi03ODujH98T-PA/exec" target="_blank" rel="noopener">▶ Ver la ruleta terminada · 완성된 돌림판 미리 보기</a>
         </div>
       </div>
     </section>
@@ -781,6 +818,7 @@ Daniel&lt;/textarea&gt;
         <div>
           <p class="plabel">Parte 2 · 파트 2</p>
           <h2>Tablero de mensajes con Hojas de cálculo<span class="ko">스프레드시트 연동 게시판 만들기</span></h2>
+          <a class="demo-link" href="https://script.google.com/macros/s/AKfycbwcX2AdboMtKNlbKpPZX2GAUguhRaU6MUO5g2lFMzeNd8V3wKVOGvmky741D5bW4LzFwg/exec" target="_blank" rel="noopener">▶ Ver el tablero terminado · 완성된 게시판 미리 보기</a>
         </div>
       </div>
     </section>
@@ -1362,6 +1400,7 @@ function clean_(value, max, label) {
         <div>
           <p class="plabel">Parte 3 · 파트 3</p>
           <h2>Juego: esquiva los misiles<span class="ko">미사일 피하기 게임 만들기</span></h2>
+          <a class="demo-link" href="https://script.google.com/macros/s/AKfycbw4qQ9P5AMxi4UpHe-Q-gMdvM9ehsy2sPST9gR2cY1eesCxkYSqQUlJeGJaT0lgI3ZtgQ/exec" target="_blank" rel="noopener">▶ Ver el juego terminado · 완성된 게임 미리 보기</a>
         </div>
       </div>
     </section>
@@ -1975,10 +2014,75 @@ function buildRanking_(playerName) {
       </div>
     </section>
 
-    <!-- End -->
-    <section class="slide" aria-label="Final">
+    <!-- Part 4 divider -->
+    <section class="slide" aria-label="Parte 4">
+      <div class="inner part p4">
+        <div class="pnum" aria-hidden="true">4</div>
+        <div>
+          <p class="plabel">Parte 4 · 파트 4</p>
+          <h2>Desafío: crea tu propia app<span class="ko">도전 : 나만의 웹앱 만들기</span></h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- Your own idea -->
+    <section class="slide" aria-label="Tu idea">
       <div class="inner">
-        <h2>¡Pruébalo ahora!<span class="ko">지금 바로 해 보세요</span></h2>
+        <h2>Convierte tu idea en una app web<span class="ko">선생님의 아이디어를 웹앱으로 만들어 보세요</span></h2>
+        <p class="def">Un juego, una herramienta para la clase… <b>¡cualquier idea vale!</b><span class="ko">게임이든, 수업 도구든 무엇이든 좋아요!</span></p>
+        <ul class="svc" aria-label="Ideas de ejemplo">
+          <li><i style="background:var(--g-blue)"></i>Juego de repaso · 복습 게임</li>
+          <li><i style="background:var(--g-red)"></i>Cuestionario · 퀴즈</li>
+          <li><i style="background:var(--g-yellow)"></i>Temporizador · 타이머</li>
+          <li><i style="background:var(--g-green)"></i>Formar equipos · 모둠 뽑기</li>
+          <li><i style="background:var(--g-blue)"></i>Encuesta de clase · 학급 설문</li>
+          <li><i style="background:var(--muted)"></i>Registro de lectura · 독서 기록장</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Prompt template -->
+    <section class="slide tight" aria-label="Pide ayuda a Gemini">
+      <div class="inner">
+        <h2>Pide ayuda a Gemini<span class="ko">Gemini에게 도움 요청하기</span></h2>
+        <ol class="howto">
+          <li><span>Copia el texto y completa los <b>[ ]</b><span class="ko">문장을 복사해서 [ ] 부분을 채우기</span></span></li>
+          <li><span>Pega el código en <b>Code.gs</b> e <b>index.html</b><span class="ko">실습 때처럼 Code.gs와 index.html에 붙여넣기</span></span></li>
+          <li><span>Implementar → Aplicación web<span class="ko">배포 → 웹 앱</span></span></li>
+        </ol>
+        <div class="win code">
+          <div class="win-bar"><i></i><i></i><i></i><span>Gemini · plantilla · 질문 틀</span><button class="copy-btn" type="button" data-target="prompt-my-app" aria-live="polite">Copiar · 복사</button></div>
+<pre id="prompt-my-app" class="wrap">Quiero crear una aplicación web con Google Apps Script.
+Idea: [describe aquí tu app]
+Quién la usa: [estudiantes / docentes]
+¿Guarda datos en una hoja de cálculo?: [sí / no]
+Hazla con 2 archivos: Code.gs e index.html.
+Que se vea bien en el celular y que los textos estén en español.
+Dame el código de cada archivo en un bloque separado, sin explicaciones.</pre>
+        </div>
+        <p class="note">Si algo falla, copia el mensaje de error y pregúntale a Gemini.<span class="ko">오류가 나면 오류 메시지를 그대로 복사해서 Gemini에게 물어보세요.</span></p>
+      </div>
+    </section>
+
+    <!-- Share on the board -->
+    <section class="slide" aria-label="Comparte tu app">
+      <div class="inner">
+        <h2>Comparte tu app en el tablero<span class="ko">게시판에 공유해 주세요</span></h2>
+        <ol class="steps">
+          <li><span>Copia la URL de tu app web publicada<span class="ko">배포한 웹앱 주소(URL) 복사하기</span></span></li>
+          <li><span>En el tablero del curso escribe: <b>Nombre</b> · <b>Título</b> (nombre de tu app) · <b>Contenido</b> (URL + una frase)<span class="ko">연수 게시판에 이름 · 제목(앱 이름) · 내용(주소 + 한 줄 소개) 올리기</span></span></li>
+          <li><span>Al final, ¡las abrimos y probamos juntos!<span class="ko">마지막에 함께 열어 보며 공유하는 시간을 가져요</span></span></li>
+        </ol>
+        <p class="note">Revisa que el acceso sea <b>Cualquier usuario</b>; si no, los demás no podrán abrirla.<span class="ko">액세스가 '모든 사용자'여야 다른 선생님들도 열어 볼 수 있어요.</span></p>
+      </div>
+    </section>
+
+    <!-- Closing -->
+    <section class="slide" aria-label="Cierre">
+      <div class="inner">
+        <h2>¡Gracias!<span class="ko">감사합니다</span></h2>
+        <p class="def">La mejor app para tu clase nace de tu propia experiencia. <b>La IA escribe el código; tú pones la idea.</b><span class="ko">우리 교실에 가장 좋은 앱은 선생님의 경험에서 나옵니다. 코드는 AI가, 아이디어는 선생님이.</span></p>
+        <p class="note">Hoy creaste tres apps web. Mañana, crea la que tu clase necesita.<span class="ko">오늘 웹앱 세 개를 만들었어요. 이제 우리 반에 필요한 앱을 직접 만들어 보세요.</span></p>
         <a class="link-box" href="https://script.google.com" target="_blank" rel="noopener">script.google.com</a>
       </div>
     </section>
