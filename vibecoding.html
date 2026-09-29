@@ -2,91 +2,1002 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>El rol docente en la era del vibe coding con IA</title>
-<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --page: #030504;
+    --stage: #070C09;
+    --card: #0D1810;
+    --card-line: #1B3522;
+    --ink: #F1F6F2;
+    --muted: #8BA394;
+    --label: #22C55E;
+    --neon: #1FF04F;
+    --neon-soft: #103D1C;
+    --sage: #86AE92;
+    --red: #FF4D6A;
+    --red-soft: #3A1119;
+    --orange: #F58A3A;
+    --yellow: #FFC21A;
+    --blue: #5EA6F7;
+    --font: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    color-scheme: dark;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { height: 100%; }
+  body {
+    margin: 0;
+    height: 100%;
+    background: var(--page);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.5;
+    overflow: hidden;
+  }
+  h1, h2, h3, p, ul, ol { margin: 0; }
+
+  /* Korean line under the Spanish text */
+  .ko {
+    display: block;
+    margin-top: .2em;
+    font-size: .72em;
+    font-weight: 500;
+    color: var(--muted);
+    font-style: normal;
+    letter-spacing: 0;
+    word-break: keep-all;
+  }
+  .say .ko, .hl .ko, .tint .ko { color: inherit; opacity: .62; }
+
+  /* Deck frame */
+  .deck { position: relative; height: 100%; padding: clamp(8px, 2vw, 24px); padding-bottom: 64px; }
+  .stage {
+    position: relative; height: 100%;
+    background: var(--stage);
+    border: 1px solid var(--card-line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .slide {
+    position: absolute; inset: 0;
+    display: none; flex-direction: column;
+    padding: clamp(24px, 5.5vh, 64px) clamp(28px, 5.5vw, 80px);
+    overflow-y: auto;
+  }
+  .slide.active { display: flex; animation: fade .28s ease-out; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  .inner { width: 100%; max-width: 1180px; margin: auto; }
+
+  .label { font-size: clamp(13px, 1.2vw, 16px); font-weight: 700; color: var(--label); margin-bottom: clamp(8px, 1.4vh, 16px); }
+  .label .ko { display: inline; margin: 0 0 0 .6em; font-size: .9em; }
+  h2 { font-size: clamp(24px, 3.4vw, 46px); font-weight: 900; line-height: 1.25; letter-spacing: -0.02em; }
+  h2 .ko { font-size: .5em; font-weight: 700; margin-top: .35em; }
+  .sub { margin-top: clamp(10px, 1.6vh, 18px); font-size: clamp(16px, 1.7vw, 23px); font-weight: 700; }
+  .gap { margin-top: clamp(18px, 3.6vh, 44px); }
+
+  /* Text lines */
+  .lines { display: flex; flex-direction: column; gap: clamp(14px, 2.6vh, 28px); font-size: clamp(17px, 1.9vw, 26px); font-weight: 700; }
+  .lines.sm { font-size: clamp(15px, 1.55vw, 21px); gap: clamp(10px, 2vh, 20px); }
+  .bullets { list-style: none; padding: 0; display: flex; flex-direction: column; gap: clamp(14px, 2.6vh, 26px); font-size: clamp(16px, 1.75vw, 24px); font-weight: 700; }
+  .bullets li { position: relative; padding-left: 1.4em; }
+  .bullets li::before { content: "▸"; position: absolute; left: 0; color: var(--neon); font-size: .8em; top: .15em; }
+  .bullets.dot li::before { content: ""; width: .42em; height: .42em; border-radius: 50%; background: var(--neon); top: .45em; }
+  .say { font-style: italic; }
+  .who { font-style: normal; font-weight: 900; margin-right: .35em; }
+  .c-sage { color: var(--sage); }
+  .c-red { color: var(--red); }
+  .c-orange { color: var(--orange); }
+  .c-yellow { color: var(--yellow); }
+  .c-neon { color: var(--neon); }
+  .c-blue { color: var(--blue); }
+  .big { font-size: clamp(20px, 2.4vw, 34px); }
+
+  /* Icons */
+  .ic { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .badge {
+    flex-shrink: 0;
+    width: clamp(48px, 5vw, 72px); height: clamp(48px, 5vw, 72px);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--neon-soft); color: var(--neon);
+    font-size: clamp(24px, 2.6vw, 36px);
+  }
+  .badge.red { background: var(--red-soft); color: var(--red); }
+
+  /* Section divider */
+  .divider { text-align: center; display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 5vh, 56px); }
+  .divider .badge { width: clamp(96px, 9vw, 150px); height: clamp(96px, 9vw, 150px); font-size: clamp(48px, 4.6vw, 76px); }
+  .divider h2 { font-size: clamp(32px, 4.4vw, 60px); }
+
+  /* Title slide */
+  .title-wrap { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: center; gap: 40px; }
+  .title-wrap h1 { font-size: clamp(28px, 3.3vw, 50px); font-weight: 900; line-height: 1.2; letter-spacing: -0.02em; }
+  .title-wrap h1 .ko { font-size: .48em; font-weight: 700; margin-top: .5em; }
+  .title-wrap .lead { margin-top: clamp(22px, 4vh, 44px); color: #9BC4A6; font-size: clamp(16px, 1.6vw, 22px); font-weight: 700; }
+  .prompt-mark { color: #0E2A15; width: 100%; max-width: 420px; justify-self: center; }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: 12px;
+    padding: clamp(18px, 2.4vw, 34px);
+  }
+  .cards { display: grid; gap: clamp(14px, 2vw, 28px); }
+  .cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .card h3 { font-size: clamp(18px, 1.8vw, 26px); font-weight: 900; margin-top: clamp(14px, 2.4vh, 26px); }
+  .card p { margin-top: clamp(10px, 2vh, 22px); color: var(--muted); font-size: clamp(14px, 1.35vw, 19px); font-weight: 700; }
+  .card p .ko { color: inherit; opacity: .8; }
+  .card.row { display: flex; align-items: center; gap: clamp(14px, 1.6vw, 22px); }
+  .card.row h3 { margin: 0; font-size: clamp(16px, 1.55vw, 22px); }
+
+  /* Dialogue box */
+  .talk { background: var(--card); border: 1px solid var(--card-line); border-radius: 12px; padding: clamp(18px, 2.6vw, 36px); display: flex; flex-direction: column; gap: clamp(12px, 2vh, 22px); font-size: clamp(18px, 2vw, 30px); font-weight: 900; }
+
+  /* Seat list + grid (slide 4) */
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(24px, 3.5vw, 56px); align-items: center; }
+  .feat { list-style: none; padding: 0; display: flex; flex-direction: column; gap: clamp(12px, 2.2vh, 24px); }
+  .feat li { display: flex; align-items: center; gap: 16px; font-size: clamp(15px, 1.5vw, 21px); font-weight: 700; }
+  .feat .badge { width: clamp(42px, 4vw, 60px); height: clamp(42px, 4vw, 60px); font-size: clamp(22px, 2vw, 30px); }
+  .feat a { color: var(--blue); overflow-wrap: anywhere; }
+  .seats { background: var(--card); border: 1px solid var(--card-line); border-radius: 12px; padding: clamp(14px, 2vw, 28px); }
+  .seats .cap { color: var(--label); font-size: clamp(12px, 1.1vw, 15px); letter-spacing: .04em; margin-bottom: 12px; }
+  .seat-grid { display: grid; grid-template-columns: repeat(13, minmax(0, 1fr)); gap: clamp(3px, .45vw, 7px); }
+  .seat-grid i { aspect-ratio: 1; border-radius: 3px; border: 1px solid #1E8A3A; background: #07120A; }
+
+  /* Horizontal flow (slide 9) */
+  .flow { display: flex; align-items: stretch; gap: clamp(6px, 1vw, 14px); }
+  .flow .card { flex: 1; min-width: 0; text-align: center; display: flex; flex-direction: column; align-items: center; padding: clamp(16px, 1.8vw, 28px) clamp(10px, 1.2vw, 18px); }
+  .flow .card h3 { font-size: clamp(15px, 1.4vw, 20px); }
+  .flow .card p { font-size: clamp(13px, 1.15vw, 16px); }
+  .flow .card.danger { background: var(--red-soft); border-color: #5A1B27; }
+  .flow .card.danger .badge { background: transparent; color: var(--red); }
+  .flow .arr { align-self: center; color: var(--neon); font-size: clamp(18px, 2vw, 28px); }
+
+  /* Prompt boxes */
+  .prompt { background: #09130C; border: 1px solid var(--card-line); border-radius: 10px; padding: clamp(14px, 2vw, 26px); }
+  .prompt .tag { color: var(--muted); font-weight: 900; font-size: clamp(14px, 1.3vw, 18px); margin-bottom: 10px; }
+  .prompt .tag .ko { display: inline; margin-left: .5em; }
+  .prompt p { font-size: clamp(15px, 1.5vw, 21px); font-weight: 700; }
+  .prompt p + p { margin-top: 12px; }
+  .result { display: flex; align-items: center; gap: 16px; margin-top: clamp(16px, 3vh, 34px); font-size: clamp(16px, 1.6vw, 22px); font-weight: 700; }
+
+  /* Paths to the DB (slide 13) */
+  .paths { display: grid; grid-template-columns: minmax(0, 1.2fr) auto minmax(0, 1fr); gap: clamp(10px, 1.6vw, 24px); align-items: center; margin-top: clamp(20px, 3.6vh, 40px); }
+  .paths .left { display: flex; flex-direction: column; gap: 12px; }
+  .pill { border-radius: 8px; padding: 12px 18px; font-weight: 700; font-size: clamp(14px, 1.4vw, 20px); border: 2px solid; }
+  .pill.no { border-color: var(--red); background: var(--red-soft); color: var(--red); }
+  .pill.yes { border-color: var(--neon); background: var(--neon-soft); color: var(--neon); }
+  .paths .mid { color: var(--neon); font-size: clamp(26px, 3vw, 44px); font-weight: 900; }
+  .paths .db { display: flex; align-items: center; gap: 16px; font-size: clamp(17px, 1.8vw, 26px); font-weight: 900; }
+
+  /* Big highlight box */
+  .hl { background: var(--card); border: 1px solid var(--card-line); border-radius: 12px; padding: clamp(22px, 3.4vw, 50px); text-align: center; }
+  .hl .badge { margin: 0 auto clamp(14px, 2.4vh, 26px); }
+  .hl .headline { font-size: clamp(22px, 2.8vw, 40px); font-weight: 900; color: var(--yellow); }
+  .hl .note { margin-top: clamp(12px, 2vh, 22px); font-size: clamp(15px, 1.6vw, 22px); font-weight: 700; color: #8BD96A; }
+  .hl.row { display: flex; align-items: center; gap: clamp(18px, 3vw, 44px); text-align: left; }
+  .hl.row .badge { margin: 0; width: clamp(80px, 8vw, 130px); height: clamp(80px, 8vw, 130px); font-size: clamp(42px, 4.2vw, 68px); }
+  .hl.row .headline { color: var(--ink); }
+  .hl.row .note { color: var(--muted); }
+  .banner { background: #0F4A1E; border-radius: 6px; padding: clamp(16px, 2.4vw, 30px); text-align: center; color: var(--neon); font-style: italic; font-weight: 900; font-size: clamp(16px, 1.8vw, 25px); }
+  .banner .ko { color: inherit; opacity: .7; }
+  .tint { background: var(--card); border-radius: 6px; padding: clamp(18px, 2.6vw, 34px); }
+
+  /* Vertical steps (slide 22) */
+  .steps { display: flex; flex-direction: column; align-items: center; max-width: 820px; margin: clamp(20px, 4vh, 44px) auto 0; }
+  .steps .card { width: 100%; text-align: center; padding: clamp(12px, 1.8vh, 20px) 20px; font-size: clamp(15px, 1.6vw, 22px); font-weight: 700; }
+  .steps .card.win { background: #0F4A1E; border: 2px solid var(--neon); color: var(--neon); font-weight: 900; }
+  .steps .card.win .ko { color: inherit; opacity: .7; }
+  .steps .down { color: var(--neon); line-height: 1; padding: 4px 0; }
+
+  /* Cycle (slide 25) */
+  .cycle-wrap { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 48px); align-items: center; }
+  .cycle { position: relative; width: 100%; max-width: 440px; aspect-ratio: 1; justify-self: center; }
+  .cycle svg.lines-bg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .node { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; text-align: center; width: 46%; font-size: clamp(13px, 1.25vw, 17px); font-weight: 700; }
+  .node .badge { margin-bottom: 6px; }
+  .node .ko { font-size: .82em; }
+
+  /* H-A-H and 4P reflection slides */
+  .dense h2 { font-size: clamp(22px, 2.6vw, 36px); }
+  .round { margin-top: clamp(14px, 2.4vh, 26px); }
+  .round h3 { font-size: clamp(16px, 1.6vw, 22px); font-weight: 900; }
+  .round h3 .ko { display: inline; margin-left: .6em; }
+  .chain { margin-top: 6px; font-size: clamp(14px, 1.3vw, 18px); font-weight: 700; }
+  .chain b { font-weight: 900; }
+  .chain .h1 { color: var(--red); }
+  .chain .a { color: var(--neon); }
+  .chain .h2 { color: var(--yellow); }
+  .chain .ar { color: var(--neon); margin: 0 .3em; }
+  .reply { margin-top: 4px; color: var(--muted); font-size: clamp(13px, 1.2vw, 16px); font-weight: 700; }
+  .sum { margin-top: clamp(16px, 3vh, 30px); color: var(--yellow); font-weight: 900; font-size: clamp(14px, 1.35vw, 19px); }
+  .p4 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); margin-top: clamp(18px, 3vh, 32px); }
+  .p4 h3 { font-size: clamp(17px, 1.75vw, 25px); font-weight: 900; }
+  .p4 h3 .ko { display: inline; margin-left: .5em; font-size: .75em; }
+  .p4 p { margin-top: 8px; font-size: clamp(13px, 1.2vw, 17px); font-weight: 500; }
+  .p4 p .ko { font-size: .92em; }
+
+  .quote { margin-top: clamp(26px, 5vh, 60px); text-align: center; color: var(--neon); font-style: italic; font-weight: 900; font-size: clamp(16px, 1.8vw, 25px); }
+  .quote .ko { color: inherit; opacity: .65; }
+
+  .photo { width: 100%; height: auto; border-radius: 10px; display: block; }
+
+  /* Home link and controls */
+  .home-link {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 10px);
+    left: calc(env(safe-area-inset-left, 0px) + 10px);
+    z-index: 10;
+    padding: 6px 14px; border-radius: 8px;
+    background: var(--stage); border: 1px solid var(--card-line);
+    color: var(--muted); font-size: 13px; font-weight: 500; text-decoration: none;
+  }
+  .home-link:hover { border-color: var(--neon); color: var(--ink); }
+  .ctl {
+    position: fixed; left: 0; right: 0;
+    bottom: env(safe-area-inset-bottom, 0px);
+    height: 56px;
+    display: flex; align-items: center; gap: 12px;
+    padding: 0 clamp(12px, 2vw, 28px);
+  }
+  .ctl button, .ctl a {
+    font-family: var(--font);
+    background: var(--stage); color: var(--ink);
+    border: 1px solid var(--card-line); border-radius: 8px;
+    height: 38px; min-width: 44px; padding: 0 14px;
+    font-size: 15px; font-weight: 500;
+    cursor: pointer; white-space: nowrap; text-decoration: none;
+    display: inline-flex; align-items: center;
+  }
+  .ctl button:hover:not(:disabled), .ctl a:hover { border-color: var(--neon); }
+  .ctl button:disabled { opacity: .4; cursor: default; }
+  .ctl :focus-visible, .home-link:focus-visible, .feat a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+  .bar { flex: 1; height: 4px; background: var(--card-line); border-radius: 2px; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--neon); transition: width .25s ease; }
+  .count { font-family: var(--mono); font-size: 14px; color: var(--muted); min-width: 4.5em; text-align: center; }
+
+  @media (max-width: 820px) {
+    .title-wrap, .split, .cols-2, .cols-3, .cycle-wrap, .p4 { grid-template-columns: minmax(0, 1fr); }
+    .prompt-mark { display: none; }
+    .flow { flex-direction: column; }
+    .flow .arr { transform: rotate(90deg); }
+    .paths { grid-template-columns: minmax(0, 1fr); }
+    .paths .mid { transform: rotate(90deg); justify-self: center; }
+    .hl.row { flex-direction: column; text-align: center; }
+    .slide { padding-top: 52px; }
+    .inner { margin: 0 auto; }
+    .ctl { gap: 8px; }
+    .ctl button, .ctl a { font-size: 13px; padding: 0 10px; }
+    .bar, .ctl .opt { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .slide.active { animation: none; }
+    .bar i { transition: none; }
+  }
+</style>
 </head>
 <body>
-<header>
-  <span class="actions left">
-    <a href="index.html" class="home">← Lista<span class="ko">목록</span></a>
-  </span>
-  <span class="title">El rol docente y el diseño de la enseñanza en la era del vibe coding con IA<span class="ko">AI기반 바이브코딩 시대의 교사역할과 교수학습설계</span></span>
-  <span class="actions">
-    <button id="present" type="button">▶ Presentar<span class="ko">발표 모드</span></button>
-    <a href="slides.pdf" download>PDF<span class="ko">내려받기</span></a>
-  </span>
-</header>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 2.5v19"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-click" viewBox="0 0 24 24"><path d="m9 9 5 12 1.8-5.2L21 14Z"/><path d="M7.2 2.2 8 5.1"/><path d="m5.1 8-2.9-.8"/><path d="M14 4.1 12 6"/><path d="m6 12-1.9 2"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+  <symbol id="i-unlock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"/><path d="M3.3 19a10 10 0 1 1 17.4 0"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-user-plus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.7V17c0 .6-.5 1-1 1.2C7.9 18.8 7 20.2 7 22"/><path d="M14 14.7V17c0 .6.5 1 1 1.2 1.1.6 2 2 2 3.8"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+  <symbol id="i-seat" viewBox="0 0 24 24"><path d="M7 11V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v6"/><path d="M4 11h16v4H4z"/><path d="M6 15v6"/><path d="M18 15v6"/></symbol>
+</svg>
 
-<main id="deck"></main>
+<a class="home-link" href="index.html">← Lista · 목록</a>
 
-<div id="viewer" hidden>
-  <img id="vimg" alt="">
-  <span id="count"></span>
-  <button class="nav prev" type="button" aria-label="Anterior">‹</button>
-  <button class="nav next" type="button" aria-label="Siguiente">›</button>
-  <button class="close" type="button" aria-label="Cerrar">✕</button>
-</div>
+<main class="deck">
+  <div class="stage" id="stage">
+
+    <!-- 1. Portada -->
+    <section class="slide" aria-label="Portada">
+      <div class="inner title-wrap">
+        <div>
+          <h1>La era del vibe coding con IA:<br>el rol docente y el diseño de la enseñanza-aprendizaje
+            <span class="ko">AI를 활용한 바이브코딩 시대, 교사의 역할과 교수학습설계</span></h1>
+          <p class="lead">Los estudiantes atacan con IA la plataforma de clase creada por el profesor,
+            y el profesor se defiende: un caso de clase de ciberataque y ciberdefensa
+            <span class="ko">학생들은 선생님이 만든 수업 플랫폼을 AI로 공략하고, 선생님은 그런 학생들을 방어하는 사이버 공방전 수업 사례</span></p>
+        </div>
+        <svg class="prompt-mark" viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"><path d="m3 18 7-7-7-7"/><path d="M12 20h10"/></svg>
+      </div>
+    </section>
+
+    <!-- 2. Sección: diseño -->
+    <section class="slide" aria-label="Diseño de la clase">
+      <div class="inner divider">
+        <span class="badge"><svg class="ic"><use href="#i-code"/></svg></span>
+        <h2>Diseño de la clase<span class="ko">수업 설계</span></h2>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide" aria-label="La clase planeada">
+      <div class="inner">
+        <p class="label">Diseño de la clase<span class="ko">수업 설계</span></p>
+        <h2>La clase que planeé al principio<span class="ko">초기에 기획했던 수업</span></h2>
+        <ul class="bullets dot gap">
+          <li>Que los estudiantes crearan programas de automatización con vibe coding
+            <span class="ko">바이브 코딩을 이용해서 학생들이 자동화 프로그램 만들도록 하는 것</span></li>
+          <li>Algo sencillo: programas que mueven el mouse o manejan un sitio web automáticamente
+            <span class="ko">마우스를 대신 움직여주거나, 웹사이트 자동으로 조작해주는 프로그램을 만드는 정도</span></li>
+          <li>A la IA: [ Voy a dar esta clase; créame un sitio web adecuado ]
+            <span class="ko">AI에게 [ 이런 수업을 할 꺼니까 적당한 사이트 만들어줘 ]</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="slide" aria-label="Booking 1000 Seats Competition">
+      <div class="inner">
+        <p class="label">Diseño de la clase<span class="ko">수업 설계</span></p>
+        <h2>Booking 1000 Seats Competition</h2>
+        <div class="split gap">
+          <ul class="feat">
+            <li><span class="badge"><svg class="ic"><use href="#i-seat"/></svg></span>
+              <span>Al hacer clic en un asiento libre, aparece un cuadro para escribir el nombre<span class="ko">빈 좌석을 클릭하면 이름 입력창이 뜬다</span></span></li>
+            <li><span class="badge"><svg class="ic"><use href="#i-seat"/></svg></span>
+              <span>Al escribir el nombre, ese asiento queda reservado<span class="ko">이름을 입력하면 그 자리가 예매된다</span></span></li>
+            <li><span class="badge"><svg class="ic"><use href="#i-seat"/></svg></span>
+              <span>Competencia en tiempo real: la tabla de clasificación muestra quién reservó más<span class="ko">누가 가장 많이 예매했는지 리더보드로 실시간 경쟁</span></span></li>
+            <li><span class="badge"><svg class="ic"><use href="#i-seat"/></svg></span>
+              <span>“IA, créalo”: hecho en un instante con vibe coding<span class="ko">AI야 만들어줘, 바이브코딩 딸깍으로 제작</span></span></li>
+            <li><span class="badge"><svg class="ic"><use href="#i-seat"/></svg></span>
+              <a href="https://macro-classroom.shk-8b6.workers.dev/" target="_blank" rel="noopener">macro-classroom.shk-8b6.workers.dev</a></li>
+          </ul>
+          <div class="seats" aria-hidden="true">
+            <p class="cap">BOOKING 1000 SEATS</p>
+            <div class="seat-grid" id="seat-grid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide" aria-label="Cómo se desarrolló la clase">
+      <div class="inner">
+        <p class="label">Diseño de la clase<span class="ko">수업 설계</span></p>
+        <h2>Cómo se desarrolló la clase Booking 1000 Seats Competition<span class="ko">Booking 1000 Seats Competition 수업 진행</span></h2>
+        <div class="lines gap">
+          <p>Mostré a los estudiantes un programa de automatización en Python que había preparado
+            <span class="ko">미리 준비해 놓은 파이썬 자동화 프로그램을 학생들에게 공개</span></p>
+          <p>“Ahora enséñenle esto a la IA y hagan que cree un programa de automatización más rápido”
+            <span class="ko">자 이제 너희들이 이걸 AI에게 학습시켜서 알아서 빠른 자동화 프로그램을 만들어보거라</span></p>
+          <p>“Luego competiremos para ver quién reserva más y más rápido”
+            <span class="ko">이따가 누가 더 예매 빠르게 많이 하는지 시합해보자</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide" aria-label="Al principio">
+      <div class="inner">
+        <p class="label">Al principio<span class="ko">초반 풍경</span></p>
+        <h2>Al principio todo salió como esperaba<span class="ko">초반에는 의도대로 흘러감</span></h2>
+        <p class="sub">Al principio hubo muchos errores típicos de estudiantes<span class="ko">초반에는 학생들이 할만한 실수들이 많이 나왔음</span></p>
+        <div class="cards cols-3 gap">
+          <div class="card">
+            <span class="badge"><svg class="ic"><use href="#i-clock"/></svg></span>
+            <h3>Tiempo de espera demasiado corto<span class="ko">너무 짧은 대기시간</span></h3>
+            <p>La reserva fallaba sin tiempo ni para escribir el nombre<span class="ko">이름을 입력할 시간도 없이 예매 실패</span></p>
+          </div>
+          <div class="card">
+            <span class="badge"><svg class="ic"><use href="#i-click"/></svg></span>
+            <h3>Clic en el lugar equivocado<span class="ko">엉뚱한 곳 클릭</span></h3>
+            <p>Hacían clic donde no había asiento libre y fallaban una y otra vez<span class="ko">빈 좌석이 아닌 곳을 눌러 계속 실패</span></p>
+          </div>
+          <div class="card">
+            <span class="badge"><svg class="ic"><use href="#i-copy"/></svg></span>
+            <h3>100 navegadores a la vez<span class="ko">브라우저 100개 동시 실행</span></h3>
+            <p>Abrirlos era automático; cerrarlos, a mano todo el día<span class="ko">여는 건 자동, 닫는 건 하루 종일 수동</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide" aria-label="Estudiantes que buscan otros caminos">
+      <div class="inner">
+        <p class="label">Comienza la batalla<span class="ko">공방전 시작</span></p>
+        <h2>Estudiantes que empiezan a buscar otros caminos<span class="ko">슬슬 다른 방법을 찾는 학생들</span></h2>
+        <div class="cards cols-2 gap">
+          <div class="card">
+            <div class="card row" style="padding:0;border:0;background:none">
+              <span class="badge red"><svg class="ic"><use href="#i-unlock"/></svg></span>
+              <h3>En cierto momento, la reserva empezaba aunque yo había pulsado STOP<span class="ko">어느 순간부터 STOP을 눌렀는데 예매가 시작</span></h3>
+            </div>
+            <p>Yo había bloqueado la reserva, pero apareció un estudiante que la rompía y la forzaba a empezar<span class="ko">분명 예매를 잠가놨는데, 그걸 뚫고 강제로 예매를 시작하는 학생 등장</span></p>
+          </div>
+          <div class="card">
+            <div class="card row" style="padding:0;border:0;background:none">
+              <span class="badge red"><svg class="ic"><use href="#i-copy"/></svg></span>
+              <h3>Sobrescriben el asiento de otro<span class="ko">남의 좌석을 덮어쓴다</span></h3>
+            </div>
+            <p>Ponían su propio nombre en un asiento que otro estudiante ya había reservado<span class="ko">이미 다른 학생이 예매한 자리를 자신의 이름으로 덮어써 버림</span></p>
+          </div>
+        </div>
+        <p class="sub" style="margin-top:clamp(18px,3.4vh,36px)">Los estudiantes empezaron a analizar con IA las vulnerabilidades del sitio<span class="ko">학생들이 AI로 사이트의 취약점을 분석하기 시작</span></p>
+        <div class="talk" style="margin-top:clamp(12px,2vh,20px)">
+          <p class="say"><span class="who">Profe:</span>¿Qué es esto? ¿Cómo lo hicieron?<span class="ko">정보쌤 : 이거 뭐냐, 이거 어떻게 했냐?</span></p>
+          <p class="say c-neon"><span class="who">Estudiantes:</span>¡Hackeamos su sitio, profe!<span class="ko">학생들 : 선생님 사이트 해킹했다</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Sección: batalla -->
+    <section class="slide" aria-label="Comienza la batalla">
+      <div class="inner divider">
+        <span class="badge"><svg class="ic"><use href="#i-shield"/></svg></span>
+        <h2>Comienza la batalla<span class="ko">공방전 시작</span></h2>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="slide" aria-label="Ronda 1: causa">
+      <div class="inner">
+        <p class="label">Ronda 1 · Causa<span class="ko">1라운드 · 원인</span></p>
+        <h2>Causa: sitio hecho en un instante con IA y sin revisar<span class="ko">원인 : 사이트 제작을 AI 딸깍으로 만들고 검토 X</span></h2>
+        <p class="sub">Los datos de conexión a la base de datos (API, URL) quedaron expuestos<span class="ko">데이터베이스 접속 정보(API, URL)이 그대로 노출</span></p>
+        <div class="flow gap">
+          <div class="card">
+            <span class="badge"><svg class="ic"><use href="#i-eye"/></svg></span>
+            <h3>Herramientas de desarrollo (F12)<span class="ko">F12 개발자 도구</span></h3>
+            <p>Las solicitudes se ven tal cual en la pestaña Red<span class="ko">네트워크 탭에 요청이 그대로</span></p>
+          </div>
+          <span class="arr" aria-hidden="true">→</span>
+          <div class="card">
+            <span class="badge"><svg class="ic"><use href="#i-key"/></svg></span>
+            <h3>Datos de conexión expuestos<span class="ko">데이터베이스 접속 정보 노출</span></h3>
+            <p>La configuración de Firebase está tal cual en el código<span class="ko">Firebase 설정이 코드에 그대로</span></p>
+          </div>
+          <span class="arr" aria-hidden="true">→</span>
+          <div class="card">
+            <span class="badge"><svg class="ic"><use href="#i-unlock"/></svg></span>
+            <h3>Reglas de acceso abiertas<span class="ko">데이터베이스 접근 규칙 개방상태</span></h3>
+            <p>Cualquiera puede leer y escribir<span class="ko">누구나 읽고 쓸 수 있는 상태</span></p>
+          </div>
+          <span class="arr" aria-hidden="true">→</span>
+          <div class="card danger">
+            <span class="badge"><svg class="ic"><use href="#i-db"/></svg></span>
+            <h3>Acceso directo a la BD<span class="ko">DB 직접 접근</span></h3>
+            <p>El estudiante escribe directamente en la BD<span class="ko">학생이 DB에 곧장 기록</span></p>
+          </div>
+        </div>
+        <div class="lines sm gap c-neon say">
+          <p>Aunque los datos de conexión estaban expuestos, no pensé que estudiantes de secundaria pudieran aprovecharlos
+            <span class="ko">데이터베이스 접속 정보가 노출되어 있더라도, 중학생들이 이걸 이용할 수 있을 거라고 생각하지 못함</span></p>
+          <p>Ellos también usan IA, y subestimé su capacidad
+            <span class="ko">학생들도 마찬가지로 AI를 돌리고 있는데, 능력을 과소평가</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide" aria-label="Ronda 1: defensa">
+      <div class="inner">
+        <p class="label">Ronda 1 · Defensa<span class="ko">1라운드 · 방어</span></p>
+        <h2>Primera defensa: poner dos puertas<span class="ko">1차 방어 - 문을 두 개 달다</span></h2>
+        <div class="cards cols-2 gap">
+          <div class="card">
+            <div class="prompt">
+              <p class="tag">Prompt a la IA<span class="ko">AI 프롬프트</span></p>
+              <p>Defiéndeme de los estudiantes que cambian todo a su antojo aunque pulsé STOP.<span class="ko">STOP 눌렀는데도 마음대로 바꾸는 학생들을 방어해줘.</span></p>
+              <p class="c-neon">Haz que solo los usuarios con sesión iniciada y verificada puedan escribir datos.<span class="ko">로그인이 확인된 사용자만 데이터를 쓸 수 있도록 바꾸세요.</span></p>
+            </div>
+            <div class="result">
+              <span class="badge"><svg class="ic"><use href="#i-key"/></svg></span>
+              <span>Reforzar las reglas de acceso a la base de datos<span class="ko">데이터베이스 접근 규칙 강화</span></span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="prompt">
+              <p class="tag">Prompt a la IA<span class="ko">AI 프롬프트</span></p>
+              <p>Defiéndeme del estudiante que sobrescribe los asientos que otros ya reservaron.<span class="ko">다른 학생이 예매한 자리를 덮어쓰는 학생을 방어해줘.</span></p>
+              <p class="c-neon">Guarda solo después de comprobar que la reserva empezó y que el asiento no lo reservó otra persona.<span class="ko">예매가 시작됐는지, 이미 다른 사람이 예매한 자리는 아닌지 확인후 저장하세요.</span></p>
+            </div>
+            <div class="result">
+              <span class="badge"><svg class="ic"><use href="#i-server"/></svg></span>
+              <span>Un servidor intermedio que revisa cada solicitud<span class="ko">요청을 한 단계 검토해주는 중간서버</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="slide" aria-label="La defensa no funcionó">
+      <div class="inner">
+        <div class="lines">
+          <p class="say c-sage big"><span class="who">Profe:</span>Chicos, inténtenlo otra vez. Ya lo bloqueé todo. Sus métodos ya no van a funcionar, ¿eh?
+            <span class="ko">얘들아 다시 해보렴. 내가 다 막아놨다. 이젠 너네가 했던 방법 안먹힐걸?</span></p>
+          <p class="say c-orange big"><span class="who">Estudiantes:</span>Pues sí funciona, jaja
+            <span class="ko">되는데요 ㅋㅋ</span></p>
+          <p class="c-red">Creí que la defensa había funcionado, pero los estudiantes seguían empezando la reserva a su antojo y sobrescribiendo los asientos de otros…
+            <span class="ko">방어에 성공한 줄 알았으나, 학생들은 여전히 마음대로 예매를 시작하고 다른 사람이 예매한 자리를 덮어쓰기중…</span></p>
+          <p class="big">Hice exactamente lo que me dijo la IA… ¿por qué no funcionó la defensa?
+            <span class="ko">분명 AI가 알려주는데로 했는데 왜 방어가 안된걸까?</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="slide" aria-label="Ronda 2: causa">
+      <div class="inner">
+        <p class="label">Ronda 2 · Causa<span class="ko">2라운드 · 원인</span></p>
+        <h2>En realidad, la solución que me dio la IA tenía huecos<span class="ko">사실 아까 AI에게 받은 해결책에는 허점이 존재</span></h2>
+        <div class="lines gap">
+          <div>
+            <p class="c-blue">[ Haz que solo los usuarios con sesión verificada puedan escribir datos. ] <span class="c-orange">Hueco</span>
+              <span class="ko">[ 로그인이 확인된 사용자만 데이터를 쓸 수 있도록 바꾸세요. ] 허점</span></p>
+            <p class="c-orange" style="margin-top:12px">Creando una cuenta nueva y enviando solicitudes con ella, pasaban sin problema, porque registrarse todavía no estaba bloqueado
+              <span class="ko">새 계정을 만들어서 그 계정으로 요청하면 그대로 통과 — 새로 가입하는 것 자체는 아직 막혀 있지 않았기 때문</span></p>
+          </div>
+          <div>
+            <p class="c-blue">[ Guarda solo después de comprobar que la reserva empezó y que el asiento no lo reservó otra persona. ] <span class="c-orange">Hueco</span>
+              <span class="ko">[ 예매가 시작됐는지, 이미 다른 사람이 예매한 자리는 아닌지 확인후 저장하세요. ] 허점</span></p>
+            <p class="c-orange" style="margin-top:12px">Se dejó el camino original y solo se añadió uno nuevo que pasa por el servidor intermedio. Sin pasar por el servidor, por el camino original, se entraba igual
+              <span class="ko">원래 있던 길은 그대로 두고, 검사하는 중간 서버로 가는 새 길만 하나 추가 — 중간 서버를 안 거치고 원래 길로 가면 그냥 통과</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section class="slide" aria-label="Ronda 2: defensa">
+      <div class="inner">
+        <p class="label">Ronda 2 · Defensa<span class="ko">2라운드 · 방어</span></p>
+        <h2>Segunda defensa: reducir todo a un solo camino<span class="ko">2차 방어 : 경로를 하나로 좁히다</span></h2>
+        <div class="prompt gap">
+          <p class="tag">Prompt a la IA<span class="ko">AI 프롬프트</span></p>
+          <p>Lo hice como me dijiste y todavía no logro defenderme. Esta es mi situación: dime otras formas de defenderme.<span class="ko">너가 알려준 방법으로 했더니 아직 방어가 안되는데, 지금 내 상황이 이러한데 추가적인 방어 방법 알려줘.</span></p>
+          <p class="c-neon">Bloquea por completo los registros nuevos en la BD y haz que el único camino a los datos sea el servidor intermedio.<span class="ko">DB 신규 가입을 완전 차단하고, 데이터에 접근하는 길을 중간서버 하나만 지나가게 하세요.</span></p>
+        </div>
+        <div class="paths">
+          <div class="left">
+            <div class="pill no">✕ Registro de usuarios nuevos<span class="ko">신규 회원가입</span></div>
+            <div class="pill no">✕ Cuentas existentes sin permisos de admin<span class="ko">기존 비-admin 계정</span></div>
+            <div class="pill yes">✓ Worker (secreto de admin)<span class="ko">Worker (admin 시크릿)</span></div>
+          </div>
+          <div class="mid" aria-hidden="true">→</div>
+          <div class="card db">
+            <span class="badge"><svg class="ic"><use href="#i-db"/></svg></span>
+            <span>Firebase DB</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="slide" aria-label="Defensa exitosa">
+      <div class="inner">
+        <div class="lines">
+          <p class="say c-sage big"><span class="who">Profe:</span>Chicos, con este parche la seguridad del sitio subió. Ahora sí que no va a funcionar.
+            <span class="ko">얘들아 지금 패치를 통해서 사이트의 보안수준이 올라갔다, 이제는 안통할 것이다.</span></p>
+          <p class="c-red big">¡Uy! De verdad ya no funciona.<span class="ko">어! 진짜 안되네요.</span></p>
+          <p class="c-red big">Tendremos que buscar otra forma.<span class="ko">다른 방법을 찾아야겠다.</span></p>
+          <p class="gap">Defensa exitosa contra cambiar a su antojo el inicio de la reserva y sobrescribir las reservas de otros
+            <span class="ko">예매 시작을 마음대로 바꾸는 기법과 다른 학생의 예매를 덮어쓰는 기법에 대한 방어 성공</span></p>
+          <p>Pero poco después surgió otro problema<span class="ko">하지만 잠시 뒤 또 다른 문제발생</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15 -->
+    <section class="slide" aria-label="Ronda 3: ataque">
+      <div class="inner">
+        <p class="label">Ronda 3 · Ataque<span class="ko">3라운드 · 공략</span></p>
+        <h2>Ronda 3: los estudiantes reservan demasiado rápido…<span class="ko">3라운드 학생들의 예매 속도가 너무나도 빠르다…</span></h2>
+        <p class="sub c-yellow">En cuanto empezaba la reserva, los 1000 asientos se agotaban en pocos segundos<span class="ko">예매 시작과 동시에 1천개의 좌석이 몇 초 만에 순식간에 예매되는 문제 발생</span></p>
+        <div class="lines gap">
+          <p class="say c-sage big"><span class="who">Profe:</span>¿Cómo reservas todo a la vez? (de verdad no sabía cómo)<span class="ko">정보쌤 : 너 이거 어떻게 한번에 동시에 예매하냐? (진짜 방법 모름)</span></p>
+          <p class="say c-red big"><span class="who">Estudiante:</span>Usé multihilos (multithreading)<span class="ko">학생 : 멀티쓰레드 썼는데요</span></p>
+          <p class="say c-sage big"><span class="who">Profe:</span>¿Y tú sabes hacer eso?<span class="ko">정보쌤 : 너 그런 것도 할 줄 아니?</span></p>
+          <p class="say c-red big"><span class="who">Estudiante:</span>Sí, me lo explica la IA<span class="ko">학생 : 네, AI가 알려주는데요</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16 -->
+    <section class="slide" aria-label="Ronda 3: método de los estudiantes">
+      <div class="inner">
+        <p class="label">Ronda 3 · Ataque<span class="ko">3라운드 · 공략</span></p>
+        <p class="sub" style="font-size:clamp(18px,2.1vw,30px)">El método de los estudiantes: enviar la solicitud [reservar asiento] al servidor intermedio lo más rápido posible, una y otra vez
+          <span class="ko">학생들의 공략법 : 중간서버에 [좌석예매] 요청을 최대한 빠르게 계속 반복</span></p>
+        <div class="hl gap">
+          <span class="badge"><svg class="ic"><use href="#i-code"/></svg></span>
+          <p class="headline">Solicitudes masivas y simultáneas al servidor intermedio con multihilos en Python
+            <span class="ko">Python 멀티스레드로 중간서버에 동시다발 요청</span></p>
+          <p class="note">Aumenté los asientos de 1000 a 5000, pero igual se agotaban en segundos: aumentar los asientos no sirve de nada
+            <span class="ko">좌석수를 1천개에서 5천개로 늘려보았으나 몇 초만에 예매되는건 동일 — 좌석수를 늘려도 의미가 없다</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 17 -->
+    <section class="slide" aria-label="Un estudiante aún más rápido">
+      <div class="inner">
+        <div class="lines">
+          <p class="say c-yellow big"><span class="who">Estudiante A:</span>Esto no es nada. El primer lugar es mío.<span class="ko">학생 A : 이거 별거 없네, 내가 일등 확정이다</span></p>
+          <p class="say c-sage big"><span class="who">Profe:</span>Parece que sí, vas a ganar tú<span class="ko">정보쌤 : 그러네 너가 일등하겠다</span></p>
+          <p class="big">Pensé que no habría un método más rápido que este<span class="ko">이 방법 보다는 빠른 방법은 없을 것이라 생각</span></p>
+          <p class="say c-orange big"><span class="who">Estudiante B:</span>Profe, yo soy más rápido<span class="ko">학생B : 선생님, 제가 더 빠릅니다</span></p>
+          <p class="big">Apareció un estudiante aún más rápido que el que usaba multihilos en Python<span class="ko">파이썬 멀티쓰레드를 쓰는 학생보다 더 빠른 속도의 학생 등장</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 18 -->
+    <section class="slide" aria-label="Arranque en frío">
+      <div class="inner">
+        <div class="lines sm">
+          <p class="say c-sage"><span class="who">Profe:</span>¡Vaya, de verdad eres más rápido! ¿Cómo lo hiciste?<span class="ko">정보쌤 : 와 진짜 너가 더 빠르네. 어떻게 했냐?</span></p>
+          <p class="say c-orange"><span class="who">Estudiante B:</span>Los que usan Python tienen un retraso al empezar la reserva: el programa tarda en arrancar. Pero si envías las solicitudes con JavaScript directamente desde la consola del navegador, ese retraso es menor.
+            <span class="ko">학생 B : 파이썬 쓰는 친구들은 처음에 예매 시작할 때 프로그램 켜지고 프로그램이 켜질때까지 딜레이가 있습니다. 하지만 브라우저 콘솔에서 바로 자바스크립트로 요청하면 이러한 딜레이가 적죠.</span></p>
+          <p class="say c-sage"><span class="who">Profe:</span>¡Vaya! ¿Y cómo lo supiste?<span class="ko">정보쌤 : 와 그걸 어떻게 알았냐?</span></p>
+          <p class="say c-orange"><span class="who">Estudiante B:</span>Le pregunté a la IA si había una forma más rápida que la de mi compañero, y me la explicó.
+            <span class="ko">학생B : 옆에 친구보다 더 빠른 방법이 있겠냐고 AI에게 물어보니 알려주더라고요</span></p>
+          <p class="big gap">Un estudiante que, sin darse cuenta, vivió de forma indirecta <span class="c-red">la importancia del arranque en frío (cold start)</span>
+            <span class="ko">자신도 모르게 콜드 스타트 중요성을 간접적으로 체험한 학생</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 19 -->
+    <section class="slide" aria-label="Pregunta a la IA">
+      <div class="inner">
+        <div class="lines">
+          <p class="say c-sage">La clase que yo imaginaba era de programación de automatización en Python… y, sin darme cuenta, estoy en una ciberbatalla con mis estudiantes
+            <span class="ko">내가 생각했던 수업은 파이썬 자동화 프로그래밍 수업인데 어쩌다 보니 학생들과 사이버 공방전을 하고 있네</span></p>
+          <p class="say c-sage">Por cierto, íbamos a competir en reservas, pero unos pocos estudiantes acaparan todo y no hay competencia
+            <span class="ko">그나저나 학생들과 예매 시합을 하기로 했는데 몇몇 학생들이 예매를 독점해버리니 경쟁이 안되네</span></p>
+          <p class="say c-sage">¿Habrá alguna forma de impedir que los estudiantes que atacan el sitio acaparen las reservas?
+            <span class="ko">이 사이트를 공략하는 학생들의 예매 독점을 막을 있는 방법이 있을까?</span></p>
+          <p class="say c-red big"><span class="who">IA:</span>Limita el número de solicitudes que una IP puede enviar por segundo
+            <span class="ko">AI : 한 IP에서 1초에 보낼 수 있는 요청 횟수를 제한하세요</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 20 -->
+    <section class="slide" aria-label="Ronda 3: defensa">
+      <div class="inner">
+        <p class="label">Ronda 3 · Defensa<span class="ko">3라운드 · 방어</span></p>
+        <h2>Tercera defensa: limitar la velocidad de las solicitudes<span class="ko">3차 방어 : 요청 속도를 제한하다</span></h2>
+        <div class="hl row gap">
+          <span class="badge"><svg class="ic"><use href="#i-gauge"/></svg></span>
+          <div>
+            <p class="headline">Cloudflare KV Rate Limit</p>
+            <p class="note">Máximo de 100 solicitudes por segundo por IP<span class="ko">한 IP의 초당 요청 횟수를 100회로 제한</span></p>
+          </div>
+        </div>
+        <p class="say c-sage big gap" style="font-weight:900">Ahora sí podremos competir de verdad<span class="ko">이제야 진짜 시합을 할 수 있겠군</span></p>
+      </div>
+    </section>
+
+    <!-- 21 -->
+    <section class="slide" aria-label="Falla la reserva">
+      <div class="inner">
+        <div class="lines sm">
+          <p class="say c-sage">Ahora, ni con multihilos en Python ni con JS desde la consola del navegador podrán enviar mil solicitudes de golpe.
+            <span class="ko">이제 파이썬 멀티쓰레드든, 브라우저 콘솔에서 JS로 요청하든 한번에 천개씩 요청하는건 안될 것이다.</span></p>
+          <p class="say c-red">¿¡Eh!? De verdad no funciona. Tendremos que buscar otra forma de atacar.<span class="ko">어!? 진짜 안되네. 다른 방법을 공략해야겠다.</span></p>
+          <p class="say c-sage">¿Empezamos la competencia?<span class="ko">이제 시합을 해볼까?</span></p>
+          <p class="say c-red">Profe, pero desde hace rato la función de reserva del sitio no funciona.<span class="ko">선생님 그런데 아까부터 사이트에서 예매 기능 자체가 작동을 안합니다.</span></p>
+        </div>
+        <p class="gap" style="font-size:clamp(20px,2.6vw,38px);font-weight:900">Tras la tercera defensa, de repente la función de reserva del sitio empezó a fallar
+          <span class="ko">3차 방어 이후 갑자기 사이트에서 예매 기능에서 오류 발생</span></p>
+      </div>
+    </section>
+
+    <!-- 22 -->
+    <section class="slide" aria-label="Desenlace">
+      <div class="inner">
+        <p class="label">Desenlace<span class="ko">결말</span></p>
+        <h2>El límite de la tercera defensa: el plan gratuito tenía un tope diario<span class="ko">3차 방어의 한계 : 무료플랜에는 일일한도가 있었다.</span></h2>
+        <div class="steps">
+          <div class="card">Incluso después de la tercera defensa, los estudiantes no se rindieron y siguieron enviando solicitudes masivas<span class="ko">3차 방어 이후에도 학생들이 포기 하지 않고 계속 대량 요청</span></div>
+          <div class="down" aria-hidden="true">↓</div>
+          <div class="card">Se alcanzó el tope diario del plan gratuito de la función de límite por IP<span class="ko">IP당 요청횟수 제한 기능의 일일 무료 플랜 한도 도달</span></div>
+          <div class="down" aria-hidden="true">↓</div>
+          <div class="card">Para poder seguir con la clase, no hubo más remedio que quitar la tercera defensa<span class="ko">수업 진행을 위해 어쩔 수 없이 3차 방어방법 폐기</span></div>
+          <div class="down" aria-hidden="true">↓</div>
+          <div class="card win">Victoria de los estudiantes que usaron la IA para encontrar vulnerabilidades<span class="ko">AI를 활용해 취약점을 찾는 학생들의 승리</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 23. Sección: reflexiones -->
+    <section class="slide" aria-label="Lo que aprendí">
+      <div class="inner divider">
+        <span class="badge"><svg class="ic"><use href="#i-bulb"/></svg></span>
+        <h2>Lo que aprendí<span class="ko">느낀점</span></h2>
+      </div>
+    </section>
+
+    <!-- 24 -->
+    <section class="slide" aria-label="Conocimientos descubiertos">
+      <div class="inner">
+        <p class="label">Reflexión<span class="ko">되짚어보기</span></p>
+        <h2>Conocimientos que los estudiantes descubrieron explorando por sí mismos<span class="ko">학생들이 스스로 탐구하면서 알아낸 지식들</span></h2>
+        <div class="cards cols-3 gap">
+          <div class="card row"><span class="badge"><svg class="ic"><use href="#i-search"/></svg></span><h3>Descubrir vulnerabilidades de un sitio web<span class="ko">웹 사이트의 취약점 발견</span></h3></div>
+          <div class="card row"><span class="badge"><svg class="ic"><use href="#i-db"/></svg></span><h3>Acceso a la base de datos<span class="ko">DB에 접근</span></h3></div>
+          <div class="card row"><span class="badge"><svg class="ic"><use href="#i-copy"/></svg></span><h3>Condición de carrera (Race Condition)<span class="ko">Race Condition</span></h3></div>
+          <div class="card row"><span class="badge"><svg class="ic"><use href="#i-user-plus"/></svg></span><h3>Eludir la autenticación<span class="ko">인증 우회</span></h3></div>
+          <div class="card row"><span class="badge"><svg class="ic"><use href="#i-layers"/></svg></span><h3>Multihilos (multithreading)<span class="ko">멀티쓰레딩</span></h3></div>
+          <div class="card row"><span class="badge"><svg class="ic"><use href="#i-terminal"/></svg></span><h3>Usar JS en la consola del navegador<span class="ko">브라우저 콘솔에서 JS 사용</span></h3></div>
+        </div>
+        <p class="say c-neon big gap" style="font-weight:900">Nada de esto se lo enseñó el profesor: todo lo descubrieron ellos mismos conversando con la IA
+          <span class="ko">이 중에서 선생님이 알려준 것은 하나도 없다 — 전부 AI와의 대화에서 스스로 발견</span></p>
+      </div>
+    </section>
+
+    <!-- 25 -->
+    <section class="slide" aria-label="Autoeficacia">
+      <div class="inner">
+        <p class="label">Sentido educativo<span class="ko">교육적 의미</span></p>
+        <h2>La autoeficacia que generó la batalla<span class="ko">공방전이 만든 자기효능감</span></h2>
+        <div class="cycle-wrap gap">
+          <div class="lines sm">
+            <p>El orgullo de haber vencido el sitio que creó el profesor<span class="ko">선생님이 만든 사이트를 자신이 공략했다는 성취감</span></p>
+            <p>Las ganas de superar el reto cuando bloqueaban su método<span class="ko">자신의 사용한 공략법이 방어되었을 때 도전욕구</span></p>
+            <p>Si un método no funcionaba, no se rendían y buscaban otro<span class="ko">공략법이 통하지 않으면 포기하지 않고 다른 방법 탐구</span></p>
+            <p>Una experiencia divertida tanto para los estudiantes que atacaban como para el profesor que defendía<span class="ko">공략하는 학생들도, 방어하는 선생님도 재밌던 경험</span></p>
+          </div>
+          <div class="cycle" aria-label="Ciclo: el profesor bloquea, el estudiante lo supera, crece el logro y la motivación, buscan otro camino">
+            <svg class="lines-bg" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 14 L86 50 L50 86 L14 50 Z" fill="none" stroke="#22C55E" stroke-width=".5"/></svg>
+            <div class="node" style="left:50%;top:14%"><span class="badge"><svg class="ic"><use href="#i-shield"/></svg></span>El profesor bloquea<span class="ko">선생님이 막는다</span></div>
+            <div class="node" style="left:86%;top:50%"><span class="badge"><svg class="ic"><use href="#i-zap"/></svg></span>El estudiante lo supera<span class="ko">학생이 뚫는다</span></div>
+            <div class="node" style="left:50%;top:86%"><span class="badge"><svg class="ic"><use href="#i-trophy"/></svg></span>Más logro y motivación ↑<span class="ko">성취감·의욕 ↑</span></div>
+            <div class="node" style="left:14%;top:50%"><span class="badge"><svg class="ic"><use href="#i-search"/></svg></span>Buscan otro camino<span class="ko">다른 방법 탐색</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 26 -->
+    <section class="slide" aria-label="Aprendizaje con IA">
+      <div class="inner">
+        <h2>En las áreas tecnológicas, aprender junto con la IA produjo un aprendizaje muy potente<span class="ko">기술관련 분야에서 AI와 함께 학습 했을 때 강력한 학습효과 발생</span></h2>
+        <div class="tint gap">
+          <ul class="bullets">
+            <li class="c-neon">Incluso estudiantes con poca programación o conocimientos técnicos analizaron la estructura del sistema preguntándole a la IA
+              <span class="ko">코딩이나 전문적 지식이 부족한 학생도 AI에게 질문하며 시스템 구조를 분석</span></li>
+            <li class="c-neon">Investigaron distintos métodos preguntándole a la IA: “¿Cómo puedo hacerlo más rápido?”
+              <span class="ko">어떻게 하면 더 빠르게 할 수 있어? 라고 AI에 질문하며 다양한 방법 조사</span></li>
+            <li class="c-yellow">Con la IA, incluso estudiantes de secundaria logran un nivel de acceso avanzado
+              <span class="ko">AI와 함께라면 중학생들도 높은 수준의 접근 가능</span></li>
+          </ul>
+        </div>
+        <div class="banner gap">Con la IA se puede reducir la brecha de competencias digitales y hacer clases mucho más variadas
+          <span class="ko">AI를 활용하면 디지털역량의 격차를 줄일 수 있고 훨씬 다양한 수업이 가능</span></div>
+      </div>
+    </section>
+
+    <!-- 27 -->
+    <section class="slide" aria-label="El poder de la motivación">
+      <div class="inner">
+        <h2>El poder de la motivación: el orgullo de “lo logré yo”<span class="ko">동기의 힘 : 내가 해냈다는 성취감</span></h2>
+        <ul class="bullets gap">
+          <li class="c-neon">Los estudiantes mostraron mucha más concentración y creatividad que de costumbre
+            <span class="ko">학생들이 평소보다 훨씬 높은 집중력과 창의력을 발휘</span></li>
+          <li class="c-neon">Aunque fallaran, no se rendían y buscaban otros caminos por sí mismos
+            <span class="ko">실패해도 포기하지 않고 다른 방법을 스스로 탐색</span></li>
+          <li class="c-yellow">El orgullo de encontrar una vulnerabilidad y superarla → una fuerte motivación para aprender
+            <span class="ko">내가 취약점을 발견해서 공략했다는 성취감 → 강력한 학습 동기로 연결</span></li>
+        </ul>
+        <p class="quote">“En una clase con IA, hay que diseñar la enseñanza para que los estudiantes exploren libremente con la IA y sientan logro en ese proceso”
+          <span class="ko">“AI를 활용한 수업에서는 학생들이 AI를 활용해서 자유롭게 탐구할 수 있도록 하고 그 과정에서 성취감을 느낄 수 있는 교수학습과정 설계가 필요하다”</span></p>
+      </div>
+    </section>
+
+    <!-- 28 -->
+    <section class="slide" aria-label="El rol del docente">
+      <div class="inner">
+        <h2>El rol del docente en la era de la IA<span class="ko">AI 시대, 교사의 역할</span></h2>
+        <ul class="bullets gap" style="font-size:clamp(15px,1.6vw,22px)">
+          <li class="c-neon">En las áreas tecnológicas, y sobre todo en el vibe coding, con IA los resultados de los estudiantes superan lo esperado
+            <span class="ko">기술 관련 분야, 특히 바이브 코딩 분야에서 AI를 활용하면 학생들의 성과가 기대이상</span></li>
+          <li class="c-neon">La motivación influye más en el aprendizaje que las diferencias de conocimientos previos
+            <span class="ko">기존에 얼마나 알고 있었나 같은 배경 지식의 차이보다 동기부여가 학습에 미치는 효과가 더 강력함</span></li>
+          <li class="c-neon">Hace falta un “patio de juegos” de aprendizaje donde el estudiante encuentre y resuelva problemas por sí mismo y siga retándose
+            <span class="ko">학생 스스로 문제를 찾고 해결하게 만들고 계속 도전할 수 있는 교수학습 운동장 필요</span></li>
+          <li class="c-yellow">En esta época en la que todos usan IA y hacen vibe coding, el rol del docente no es solo transmitir conocimientos: es importante diseñar un patio de juegos de aprendizaje donde los estudiantes exploren, apliquen la tecnología y se reten libremente
+            <span class="ko">모두가 AI를 활용하고 바이브코딩을 하는 지금 시대에서 교사의 역할은 지식 전달 뿐만 아니라 학생들이 자유롭게 기술을 탐구하고 적용하며, 도전할 수 있는 교수학습설계 운동장을 설계 하는 것이 중요</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 29 -->
+    <section class="slide dense" aria-label="Estructura H-A-H">
+      <div class="inner">
+        <h2>Reflexión con 읽걷쓰AI (Leer · Caminar · Escribir con IA) · Estructura H-A-H<span class="ko">읽걷쓰AI로 되짚어보기 · H-A-H 구조</span></h2>
+        <div class="round">
+          <h3>Ronda 1 · Acceso directo a la BD<span class="ko">1라운드 · DB 직접 접근</span></h3>
+          <p class="chain"><b class="h1">H</b> Buscando cómo reservar más rápido, los estudiantes se hacen preguntas <span class="ar">→</span><b class="a">A</b> Encuentran cómo acceder directamente a la BD <span class="ar">→</span><b class="h2">H</b> Comprueban que de verdad funciona
+            <span class="ko">H 더 빠른 예매를 위해 방법을 찾던 학생들이 고민 → A DB 직접 접근하는 방법을 찾음 → H 실제로 통함을 검증</span></p>
+          <p class="reply">↳ Respuesta del profesor: reforzar las reglas de la BD + añadir un servidor intermedio<span class="ko">교사의 대응 : DB 규칙 강화 + 중간서버 도입</span></p>
+        </div>
+        <div class="round">
+          <h3>Ronda 2 · Eludir la autenticación<span class="ko">2라운드 · 인증 우회</span></h3>
+          <p class="chain"><b class="h1">H</b> Piensan por dónde esquivar el servidor intermedio <span class="ar">→</span><b class="a">A</b> Eluden la autenticación con una cuenta nueva, sin pasar por el servidor <span class="ar">→</span><b class="h2">H</b> Comprueban que el atajo funciona
+            <span class="ko">H 중간서버를 우회 지점을 고민 → A 새 계정으로 인증 우회, 중간서버 미경유 → H 이 우회가 실제로 통함을 검증</span></p>
+          <p class="reply">↳ Respuesta del profesor: bloquear los registros nuevos + un único camino de acceso por el servidor intermedio<span class="ko">교사의 대응 : 신규 가입 차단 + 접근 경로를 중간서버 하나로 제한</span></p>
+        </div>
+        <div class="round">
+          <h3>Ronda 3 · Carrera de velocidad<span class="ko">3라운드 · 속도 경쟁</span></h3>
+          <p class="chain"><b class="h1">H</b> Buscan un método más rápido <span class="ar">→</span><b class="a">A</b> De multihilos en Python a solicitudes JS desde la consola del navegador <span class="ar">→</span><b class="h2">H</b> Comprueban que este es el más rápido
+            <span class="ko">H 더 빠른 방법을 탐색 → A 파이썬 멀티스레드로부터 브라우저 콘솔 JS 요청까지 → H 이 방법이 가장 빠름을 검증</span></p>
+          <p class="reply">↳ Respuesta del profesor: límite de solicitudes por segundo por IP → los estudiantes siguen intentando esquivarlo → al final agotan el tope diario del plan gratuito y el límite se desactiva
+            <span class="ko">교사의 대응 : IP당 초당 요청 제한 → 학생들, 계속 우회 시도 → 결국 무료플랜 일일 한도에 도달시켜 제한을 풀어버림</span></p>
+        </div>
+        <p class="sum">→ Resumen: en las tres rondas, los estudiantes recorrieron por sí mismos el ciclo pregunta (H) → ejecución con IA (A) → verificación (H), y cada resultado provocó una nueva H: la siguiente defensa del profesor. Toda la batalla se convirtió en un gran ciclo H-A-H.
+          <span class="ko">정리 — 세 라운드 모두 학생은 질문(H) → AI와 실행(A) → 검증(H)의 루프를 스스로 돌았고, 그 결과가 선생님의 다음 방어라는 새로운 H를 부르며 전체 공방전이 하나의 큰 H-A-H 순환으로 이어졌다.</span></p>
+      </div>
+    </section>
+
+    <!-- 30 -->
+    <section class="slide dense" aria-label="Contexto de aprendizaje 4P">
+      <div class="inner">
+        <h2>Reflexión con 읽걷쓰AI · Contexto de aprendizaje 4P<span class="ko">읽걷쓰AI로 되짚어보기 · 4P 학습 맥락</span></h2>
+        <div class="p4">
+          <div>
+            <h3 class="c-neon">P1 · Phenomenon: observar el fenómeno<span class="ko">현상 관찰하기</span></h3>
+            <p>Los estudiantes vivieron y observaron directamente cómo los asientos se agotaban al instante, cómo unos pocos acaparaban las reservas y cómo el profesor ponía una nueva defensa cada vez que ellos encontraban un método.
+              <span class="ko">좌석이 순식간에 매진되고 몇몇 학생이 예매를 독점하는 현상, 그리고 방법을 찾을 때마다 선생님이 새로운 방어를 거는 상황을 학생들이 직접 겪으며 관찰</span></p>
+          </div>
+          <div>
+            <h3 class="c-red">P2 · Problem: plantear preguntas<span class="ko">문제 질문하기</span></h3>
+            <p>“¿Cómo consigo más asientos?”, “¿Cómo supero esta defensa?”: con cada ronda (acceso a la BD, eludir la autenticación, carrera de velocidad) se hacían nuevas preguntas.
+              <span class="ko">"어떻게 하면 더 많은 좌석을 차지할 수 있을까?", "이 방어를 어떻게 뚫을 수 있을까?" — DB 접근, 인증 우회, 속도 경쟁까지 라운드가 바뀔 때마다 스스로에게 새로운 질문</span></p>
+          </div>
+          <div>
+            <h3 class="c-neon">P3 · Project: explorar la tarea<span class="ko">과업 탐구하기</span></h3>
+            <p>Modificar la BD directamente → eludir la autenticación con una cuenta nueva → solicitudes masivas con multihilos → solicitudes directas desde la consola: exploraron varios métodos con la IA y comprobaron uno a uno si funcionaban.
+              <span class="ko">DB 직접 수정 → 새 계정으로 인증 우회 → 멀티스레드 대량 요청 → 브라우저 콘솔 직접 요청까지, 여러 방법을 AI와 함께 탐구하며 하나씩 직접 실행해 실제로 통하는지 검증</span></p>
+          </div>
+          <div>
+            <h3 class="c-yellow">P4 · Practice: pasar a la acción<span class="ko">실천 행동하기</span></h3>
+            <p>Cuando los bloqueaban, no se rendían y probaban otros atajos; insistieron hasta el punto de agotar el tope diario de la función de límite de solicitudes, y esa experiencia se convirtió en orgullo y en ganas del siguiente reto.
+              <span class="ko">막히면 포기하지 않고 계속 다른 우회법을 시도했고, 결국 요청 제한 기능이 일일 한도에 도달해 풀려버릴 만큼 끝까지 밀어붙인 경험이 성취감과 다음 도전으로 이어짐</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 31 -->
+    <section class="slide" aria-label="Fotos de la clase">
+      <div class="inner">
+        <p class="label">En clase<span class="ko">수업 현장</span></p>
+        <img class="photo" src="slides/31.jpg" alt="Estudiantes trabajando en sus computadoras durante la clase" width="1920" height="1080" loading="lazy">
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<nav class="ctl" aria-label="Navegación de diapositivas">
+  <button id="prev" type="button" aria-label="Diapositiva anterior">Anterior · 이전</button>
+  <div class="bar" aria-hidden="true"><i id="prog"></i></div>
+  <span class="count" id="count" aria-live="polite"></span>
+  <button id="next" type="button" aria-label="Diapositiva siguiente">Siguiente · 다음</button>
+  <button class="opt" id="full" type="button">Pantalla completa · 전체 화면</button>
+</nav>
 
 <script>
-const TOTAL = 31;
-const src = i => `slides/${String(i).padStart(2, '0')}.jpg`;
-const deck = document.getElementById('deck');
-for (let i = 1; i <= TOTAL; i++) {
-  const fig = document.createElement('figure');
-  fig.id = `s${i}`;
-  fig.innerHTML = `<img src="${src(i)}" alt="Diapositiva ${i}" loading="${i < 3 ? 'eager' : 'lazy'}" width="1920" height="1080"><figcaption>${i} / ${TOTAL}</figcaption>`;
-  fig.addEventListener('click', () => open(i));
-  deck.appendChild(fig);
-}
+(function () {
+  // Seat grid on slide 4 (13 x 7); letters are reserved seats, dots are free
+  var seatColors = { R: '#FF4D5E', O: '#FF9F43', C: '#48DBFB', B: '#54A0FF', P: '#A55EEA', K: '#FF7EB6', G: '#2ED47A', Y: '#FECA57' };
+  var rows = ['.R......O..C.', '...B..P...K..', 'GYR...O...CBP', '.K..G...YR.OC', '.B.P.......K.', 'G.YROC..B....', '.......P...K.'];
+  var grid = document.getElementById('seat-grid');
+  rows.join('').split('').forEach(function (ch) {
+    var cell = document.createElement('i');
+    if (seatColors[ch]) { cell.style.background = seatColors[ch]; cell.style.borderColor = seatColors[ch]; }
+    grid.appendChild(cell);
+  });
 
-const viewer = document.getElementById('viewer');
-const vimg = document.getElementById('vimg');
-const count = document.getElementById('count');
-let cur = 1;
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var prev = document.getElementById('prev');
+  var next = document.getElementById('next');
+  var prog = document.getElementById('prog');
+  var count = document.getElementById('count');
+  var idx = 0;
 
-function show(i) {
-  cur = Math.min(TOTAL, Math.max(1, i));
-  vimg.src = src(cur);
-  vimg.alt = `Diapositiva ${cur}`;
-  count.textContent = `${cur} / ${TOTAL}`;
-  if (cur < TOTAL) new Image().src = src(cur + 1);
-}
-function open(i) {
-  show(i);
-  viewer.hidden = false;
-  document.body.style.overflow = 'hidden';
-  viewer.requestFullscreen?.().catch(() => {});
-}
-function close() {
-  viewer.hidden = true;
-  document.body.style.overflow = '';
-  if (document.fullscreenElement) document.exitFullscreen();
-  document.getElementById(`s${cur}`).scrollIntoView({ block: 'center' });
-}
+  function show(n) {
+    idx = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, i) {
+      s.classList.toggle('active', i === idx);
+      if (i === idx) { s.scrollTop = 0; }
+    });
+    prev.disabled = idx === 0;
+    next.disabled = idx === slides.length - 1;
+    prog.style.width = ((idx + 1) / slides.length * 100) + '%';
+    count.textContent = (idx + 1) + ' / ' + slides.length;
+    history.replaceState(null, '', '#' + (idx + 1));
+    fit(slides[idx]);
+  }
 
-document.getElementById('present').onclick = () => open(1);
-viewer.querySelector('.prev').onclick = e => { e.stopPropagation(); show(cur - 1); };
-viewer.querySelector('.next').onclick = e => { e.stopPropagation(); show(cur + 1); };
-viewer.querySelector('.close').onclick = e => { e.stopPropagation(); close(); };
-vimg.onclick = e => { e.clientX > innerWidth / 2 ? show(cur + 1) : show(cur - 1); };
-document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && !viewer.hidden) close(); });
-document.addEventListener('keydown', e => {
-  if (viewer.hidden) return;
-  if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); show(cur + 1); }
-  else if (['ArrowLeft', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); show(cur - 1); }
-  else if (e.key === 'Home') show(1);
-  else if (e.key === 'End') show(TOTAL);
-  else if (e.key === 'Escape') close();
-});
-let tx = null;
-viewer.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
-viewer.addEventListener('touchend', e => {
-  if (tx === null) return;
-  const dx = e.changedTouches[0].clientX - tx;
-  if (Math.abs(dx) > 40) show(cur + (dx < 0 ? 1 : -1));
-  tx = null;
-});
+  // On wide screens shrink a slide's content until it fits without scrolling; phones keep scrolling
+  function fit(slide) {
+    var inner = slide.querySelector('.inner');
+    inner.style.zoom = '';
+    if (window.innerWidth <= 820) { return; }
+    var z = 1;
+    for (var i = 0; i < 12 && slide.scrollHeight > slide.clientHeight + 1 && z > 0.5; i++) {
+      z = Math.max(0.5, z * Math.max(0.9, Math.min(0.98, slide.clientHeight / slide.scrollHeight)));
+      inner.style.zoom = z;
+    }
+  }
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () { fit(slides[idx]); }, 120);
+  });
+
+  prev.addEventListener('click', function () { show(idx - 1); });
+  next.addEventListener('click', function () { show(idx + 1); });
+
+  document.getElementById('full').addEventListener('click', function () {
+    if (document.fullscreenElement) { document.exitFullscreen(); }
+    else if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen().catch(function () {}); }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ' || e.key === 'Enter') {
+      if (e.target && (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') && (e.key === ' ' || e.key === 'Enter')) { return; }
+      e.preventDefault(); show(idx + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'Backspace') {
+      e.preventDefault(); show(idx - 1);
+    } else if (e.key === 'Home') { show(0); }
+    else if (e.key === 'End') { show(slides.length - 1); }
+    else if (e.key === 'f' || e.key === 'F') { document.getElementById('full').click(); }
+  });
+
+  var sx = null, sy = null;
+  var stage = document.getElementById('stage');
+  stage.addEventListener('touchstart', function (e) {
+    sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    if (sx === null) { return; }
+    var dx = e.changedTouches[0].clientX - sx;
+    var dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      show(dx < 0 ? idx + 1 : idx - 1);
+    }
+    sx = null; sy = null;
+  }, { passive: true });
+
+  function fromHash() {
+    var n = parseInt(location.hash.slice(1), 10);
+    return n > 0 ? n - 1 : 0;
+  }
+  window.addEventListener('hashchange', function () { if (fromHash() !== idx) { show(fromHash()); } });
+  show(fromHash());
+})();
 </script>
 </body>
 </html>
