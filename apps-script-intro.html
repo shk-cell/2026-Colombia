@@ -765,7 +765,7 @@
         <div class="pnum" aria-hidden="true">3</div>
         <div>
           <p class="plabel">파트 3</p>
-          <h2>과일 합치기 게임 만들기</h2>
+          <h2>미사일 피하기 게임 만들기</h2>
         </div>
       </div>
     </section>
@@ -773,11 +773,11 @@
     <!-- Practice 3 goal -->
     <section class="slide" aria-label="실습 3 목표">
       <div class="inner">
-        <h2>실습 3 : 과일 합치기 게임</h2>
+        <h2>실습 3 : 미사일 피하기 게임</h2>
         <div class="rows">
-          <div class="row"><h3>게임 플레이</h3><p>과일을 떨어뜨려 같은 과일끼리 합치기</p></div>
-          <div class="row"><h3>점수 저장</h3><p>이름과 점수를 스프레드시트에 기록</p></div>
-          <div class="row"><h3>랭킹 보기</h3><p>가장 높은 점수 순서로 확인</p></div>
+          <div class="row"><h3>게임 플레이</h3><p>사방에서 날아오는 미사일을 최대한 오래 피하기</p></div>
+          <div class="row"><h3>점수 저장</h3><p>이름과 생존 점수를 스프레드시트에 기록</p></div>
+          <div class="row"><h3>랭킹 보기</h3><p>가장 오래 살아남은 순서로 확인</p></div>
         </div>
       </div>
     </section>
@@ -845,22 +845,24 @@
         <h2>Gemini에게 물어보기</h2>
         <div class="win wide prompt long scroll">
           <div class="win-bar"><i></i><i></i><i></i><span>Gemini 프롬프트</span><button class="copy-btn" type="button" data-target="prompt-gemini-game" aria-live="polite">프롬프트 복사</button></div>
-<pre id="prompt-gemini-game">Google Apps Script 웹앱으로 '과일 합치기' 게임을 만들어 줘. 스프레드시트를 점수 기록용 DB로 써. 파일은 2개야.
+<pre id="prompt-gemini-game">Google Apps Script 웹앱으로 '미사일 피하기' 게임을 만들어 줘. 스프레드시트를 점수 기록용 DB로 써. 파일은 2개야.
 
 [Code.gs]
-- doGet()에서 index.html 열기, 제목 '과일 합치기', 모바일 viewport 설정
+- doGet()에서 index.html 열기, 제목 '미사일 피하기', 모바일 viewport 설정
 - '기록' 시트에 점수 저장 (없으면 제목 줄과 함께 자동 생성), 열 : 이름, 점수, 일시
 - saveScore(name, score) : 기록 시트 맨 아래에 한 줄 추가
 - getRanking() : 점수 높은 순으로 상위 10개를 [이름, 점수] 배열로 반환
 
 [index.html]
-- canvas로 만드는 과일 합치기(수박게임 스타일) 미니게임
-  - 위에서 과일이 하나씩 나오고, 화면을 탭하거나 클릭한 위치로 떨어뜨림
-  - 중력으로 아래로 내려가다 바닥 · 벽 · 다른 과일과 부딪히면 멈춤
-  - 크기가 같은 과일끼리 부딪히면 둘 다 사라지고 그 자리에 한 단계 큰 과일이 새로 생기며 점수 획득 (단계 6~7개, 단색 원 + 이모지로 표현. 작은 과일부터 수박까지)
-  - 게임 시작 직후에는 작은 과일 1~2단계만 떨어지다가, 시간이 지날수록(예: 20초마다) 떨어질 수 있는 과일의 최대 단계가 하나씩 올라가서 점점 큰 과일도 섞여 떨어짐 → 난이도 상승
-  - 쌓인 과일이 위쪽 안전선을 넘으면 게임 오버
+- canvas로 만드는 미사일 피하기 생존 게임
+  - 플레이어는 원 모양 우주선이고, 손가락(또는 마우스)을 움직이면 그 위치를 따라감
+  - 미사일은 화면 상하좌우 바깥에서 계속 나타나 플레이어 쪽으로 날아옴 (완전히 정확히 조준하지 않고 약간의 랜덤한 방향 오차를 줌)
+  - 미사일은 날아가는 중에도 플레이어 위치 쪽으로 서서히 방향을 트는 유도 기능이 있어서 완전히 직선으로만 날아오지 않음
+  - 시간이 지날수록 미사일 속도, 유도 성능, 한 번에 나오는 개수, 생성 빈도가 모두 계속 올라가서 뒤로 갈수록 훨씬 어려워짐 (초반 몇 초만 살짝 여유 있게)
+  - 플레이어와 미사일이 닿으면 즉시 게임 오버
+  - 점수는 생존한 시간에 비례해서 계속 올라감 (예: 0.1초마다 1점)
 - 시작 전 이름 입력창과 '시작' 버튼
+- 화면에 현재 점수와 생존 시간을 실시간으로 표시
 - 게임 오버 시 최종 점수 표시 + google.script.run으로 saveScore(이름, 점수) 호출
 - 게임 오버 화면에 getRanking()으로 받은 순위 TOP 10을 표로 보여주고, '다시하기' 버튼 제공
 - 모바일 터치로도 조작 가능하게, 화면 꽉 차게
