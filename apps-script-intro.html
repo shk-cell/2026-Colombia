@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Google Apps Script 소개</title>
+<title>Google Apps Script · Introducción</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -18,9 +18,6 @@
     --accent-soft: #E3ECFC;
     --code-bg: #101827;
     --code-ink: #DDE5F3;
-    --c-kw: #8AB4F8;
-    --c-str: #81C995;
-    --c-fn: #FDD663;
     --c-cm: #7C8AA3;
     --g-blue: #1A73E8;
     --g-red: #D93025;
@@ -114,12 +111,7 @@
     margin-bottom: clamp(20px, 3.4vh, 40px);
     max-width: 22em;
   }
-  .lead {
-    font-size: clamp(16px, 1.7vw, 22px);
-    color: var(--muted);
-    max-width: 34em;
-  }
-  .lead b, li b { color: var(--ink); font-weight: 700; }
+  li b { color: var(--ink); font-weight: 700; }
 
   /* Title slide */
   .title-wrap {
@@ -186,24 +178,20 @@
   .win-bar .copy-btn:hover { filter: brightness(1.08); }
   .win-bar .copy-btn.done { background: var(--g-green); }
   .win-bar .copy-btn:focus-visible { outline: 3px solid var(--g-yellow); outline-offset: 2px; }
-  .win.wide pre { font-size: clamp(13px, 1.6vw, 21px); }
-  .win.prompt pre { white-space: pre-wrap; word-break: keep-all; font-family: var(--font); font-size: clamp(15px, 1.55vw, 20px); line-height: 1.65; }
   .slide.tight { padding-top: clamp(16px, 3.5vh, 40px); padding-bottom: clamp(16px, 3.5vh, 40px); }
-  .slide.tight h2 { margin-bottom: clamp(12px, 2.2vh, 24px); }
-  .slide.tight .note { word-break: keep-all; }
-  /* Guidance under prompt windows: ask Gemini -> paste result */
-  .ask-flow { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 10px; align-items: stretch; margin-top: clamp(12px, 2.2vh, 22px); counter-reset: ask; }
-  .ask { counter-increment: ask; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; align-items: center; padding: 12px 16px; background: var(--accent-soft); border-radius: 12px; font-size: clamp(15px, 1.55vw, 21px); font-weight: 700; line-height: 1.4; word-break: keep-all; }
-  .ask::before { content: counter(ask); width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--stage); display: grid; place-items: center; font-weight: 900; font-size: 15px; }
-  .ask small { display: block; margin-top: 2px; font-weight: 500; color: var(--muted); font-size: 0.8em; }
-  .ask-flow .ar { align-self: center; color: var(--muted); font-size: clamp(20px, 2.2vw, 30px); }
-  .slide.tight .win.narrow pre { line-height: 1.55; font-size: clamp(13px, 1.55vw, 20px); }
-  .win.prompt.long pre { font-size: clamp(13px, 1.2vw, 18px); line-height: 1.38; padding-top: 14px; padding-bottom: 14px; }
-  .win.scroll pre { max-height: clamp(200px, 46vh, 520px); overflow: auto; }
-  .k { color: var(--c-kw); }
-  .s { color: var(--c-str); }
-  .f { color: var(--c-fn); }
-  .c { color: var(--c-cm); }
+  .slide.tight h2 { margin-bottom: clamp(10px, 1.8vh, 20px); }
+  .win.code pre { font-size: clamp(12px, 1.05vw, 15px); line-height: 1.55; max-height: clamp(220px, 50vh, 620px); overflow: auto; tab-size: 2; }
+
+  /* Steps shown above a code window */
+  .howto { list-style: none; margin: 0 0 clamp(10px, 1.8vh, 18px); padding: 0; display: flex; flex-wrap: wrap; gap: 8px; counter-reset: hw; }
+  .howto li { counter-increment: hw; flex: 1 1 220px; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; align-items: center; padding: 10px 14px; background: var(--accent-soft); border-radius: 10px; font-weight: 700; font-size: clamp(14px, 1.4vw, 19px); line-height: 1.35; }
+  .howto li::before { content: counter(hw); width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--stage); display: grid; place-items: center; font-weight: 900; font-size: 14px; }
+
+  /* Korean line under the Spanish text */
+  .ko { display: block; margin-top: .2em; font-size: .75em; font-weight: 500; color: var(--muted); letter-spacing: 0; line-height: 1.4; word-break: keep-all; }
+  h2 .ko { font-size: .52em; }
+  h3 .ko { font-size: .62em; }
+  .def .ko { font-size: .62em; margin-top: .5em; }
 
   /* Definition rows */
   .rows { border-top: 1px solid var(--line); }
@@ -218,10 +206,6 @@
   .row h3 { font-size: clamp(17px, 1.9vw, 24px); font-weight: 700; letter-spacing: -0.01em; }
   .split h2 { word-break: keep-all; }
   .row p { color: var(--muted); font-size: clamp(15px, 1.5vw, 19px); word-break: keep-all; }
-  .row h3 .mark {
-    display: inline-block; width: 10px; height: 10px; border-radius: 50%;
-    margin-right: 10px; vertical-align: 0.05em;
-  }
 
   /* Two column compare */
   .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 4vw, 56px); }
@@ -319,6 +303,7 @@
     height: 38px; min-width: 44px; padding: 0 14px;
     font-size: 15px; font-weight: 500;
     cursor: pointer;
+    white-space: nowrap;
   }
   .ctl button:hover:not(:disabled), .theme:hover { border-color: var(--accent); }
   .ctl button:disabled { opacity: .4; cursor: default; }
@@ -327,13 +312,11 @@
   .count { font-family: var(--mono); font-size: 14px; color: var(--muted); min-width: 4.5em; text-align: center; }
 
   /* Less text, bigger type */
-  .row { grid-template-columns: minmax(0, 11em) minmax(0, 1fr); }
-  .row h3 { font-size: clamp(20px, 2.6vw, 34px); }
+  .row { grid-template-columns: minmax(0, 15em) minmax(0, 1fr); }
+  .row h3 { font-size: clamp(19px, 2.2vw, 30px); }
   .row p { font-size: clamp(18px, 2.2vw, 28px); color: var(--ink); }
   .col h3 { font-size: clamp(24px, 3.2vw, 44px); }
   .col .tag { font-size: clamp(16px, 1.8vw, 24px); margin: 0; }
-  .win.narrow { max-width: 760px; }
-  .win.narrow pre { font-size: clamp(13px, 1.7vw, 22px); }
   .note { font-size: clamp(16px, 1.8vw, 24px); }
   .steps li { font-size: clamp(18px, 2.2vw, 28px); }
 
@@ -341,10 +324,6 @@
   .sheet { width: 100%; border-collapse: collapse; font-size: clamp(15px, 1.9vw, 24px); background: var(--stage); border: 1px solid var(--line); }
   .sheet th, .sheet td { border: 1px solid var(--line); padding: 10px 16px; text-align: left; }
   .sheet thead th, .sheet tbody th { background: var(--accent-soft); color: var(--muted); font-weight: 500; text-align: center; width: 15%; }
-  .sheet td.hd { font-weight: 700; }
-  .sheet tr.new td { background: #FFF1B8; color: #3A2E00; font-weight: 700; }
-  :root[data-theme="dark"] .sheet tr.new td { background: #4A3D0A; color: #FDE68A; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .sheet tr.new td { background: #4A3D0A; color: #FDE68A; } }
   .cap { margin-top: 12px; color: var(--muted); font-size: clamp(15px, 1.7vw, 22px); }
 
   /* Spreadsheet as database */
@@ -412,9 +391,10 @@
     .row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
     .slide { padding-top: 32px; }
     .inner { margin: 0 auto; }
-    .ask-flow { grid-template-columns: minmax(0, 1fr); }
-    .ask-flow .ar { transform: rotate(90deg); justify-self: center; }
     .theme { display: none; }
+    .ctl { gap: 8px; }
+    .ctl button { font-size: 13px; padding: 0 10px; }
+    .bar { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
     .slide.active { animation: none; }
@@ -424,23 +404,23 @@
 </style>
 </head>
 <body>
-<a class="home-link" href="index.html">← 목록</a>
+<a class="home-link" href="index.html">← Lista · 목록</a>
 <main class="deck">
   <div class="stage" id="stage">
 
-    <!-- 1. Title -->
-    <section class="slide active" aria-label="표지">
+    <!-- Title -->
+    <section class="slide active" aria-label="Portada">
       <div class="inner title-wrap">
         <div>
           <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
           <h1>Google<br>Apps Script</h1>
-          <p class="sub">Apps Script로 만드는 나만의 웹앱</p>
+          <p class="sub">Crea tu propia aplicación web con Apps Script<span class="ko">Apps Script로 만드는 나만의 웹앱</span></p>
         </div>
         <div class="app" aria-hidden="true">
           <div class="app-bar"><i></i><i></i><i></i><span class="url">script.google.com/…</span></div>
           <div class="app-body">
-            <div class="app-title">나의 첫 웹앱</div>
-            <svg class="mascot" viewBox="0 0 120 120" role="img" aria-label="웃는 얼굴 캐릭터">
+            <div class="app-title">Mi primera app web</div>
+            <svg class="mascot" viewBox="0 0 120 120" role="img" aria-label="Personaje sonriente">
               <path d="M60 22 C56 10 46 8 40 12 C46 18 52 20 60 22 Z" fill="var(--g-green)"/>
               <path d="M60 22 C64 10 74 8 80 12 C74 18 68 20 60 22 Z" fill="var(--g-green)"/>
               <circle cx="60" cy="68" r="44" fill="var(--g-yellow)" stroke="var(--ink)" stroke-width="3"/>
@@ -452,115 +432,115 @@
               <ellipse cx="88" cy="78" rx="8" ry="5" fill="var(--g-red)" opacity=".35"/>
               <path d="M48 80 Q60 94 72 80" fill="none" stroke="var(--code-bg)" stroke-width="4" stroke-linecap="round"/>
             </svg>
-            <div class="bubble">안녕! 나는 Apps Script로<br>만든 웹앱이야</div>
-            <div class="cute-btn">인사하기</div>
+            <div class="bubble">¡Hola! Soy una app web<br>hecha con Apps Script</div>
+            <div class="cute-btn">Saludar</div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Part 1 divider -->
-    <section class="slide" aria-label="파트 1">
+    <section class="slide" aria-label="Parte 1">
       <div class="inner part">
         <div class="pnum" aria-hidden="true">1</div>
         <div>
-          <p class="plabel">파트 1</p>
-          <h2>Apps Script 소개와 돌림판 만들기</h2>
+          <p class="plabel">Parte 1 · 파트 1</p>
+          <h2>Introducción a Apps Script y la ruleta<span class="ko">Apps Script 소개와 돌림판 만들기</span></h2>
         </div>
       </div>
     </section>
 
     <!-- What is Apps Script -->
-    <section class="slide" aria-label="Apps Script란">
+    <section class="slide" aria-label="Qué es Apps Script">
       <div class="inner">
-        <h2>Google Apps Script란?</h2>
-        <p class="def">구글 서비스를 <b>자바스크립트</b>로 다루고 확장할 수 있도록 구글이 제공하는 개발 플랫폼입니다.</p>
-        <ul class="svc" aria-label="연동 가능한 구글 서비스">
-          <li><i style="background:var(--g-green)"></i>스프레드시트</li>
-          <li><i style="background:var(--g-blue)"></i>문서</li>
+        <h2>¿Qué es Google Apps Script?<span class="ko">Google Apps Script란?</span></h2>
+        <p class="def">Es una plataforma de desarrollo de Google para usar y ampliar sus servicios con <b>JavaScript</b>.<span class="ko">구글 서비스를 자바스크립트로 다루고 확장할 수 있도록 구글이 제공하는 개발 플랫폼입니다.</span></p>
+        <ul class="svc" aria-label="Servicios de Google">
+          <li><i style="background:var(--g-green)"></i>Hojas de cálculo · 스프레드시트</li>
+          <li><i style="background:var(--g-blue)"></i>Documentos · 문서</li>
           <li><i style="background:var(--g-red)"></i>Gmail</li>
-          <li><i style="background:var(--g-yellow)"></i>캘린더</li>
-          <li><i style="background:var(--muted)"></i>드라이브</li>
-          <li><i style="background:var(--g-blue)"></i>폼</li>
+          <li><i style="background:var(--g-yellow)"></i>Calendar · 캘린더</li>
+          <li><i style="background:var(--muted)"></i>Drive · 드라이브</li>
+          <li><i style="background:var(--g-blue)"></i>Formularios · 폼</li>
         </ul>
       </div>
     </section>
 
-    <!-- 2. Features -->
-    <section class="slide" aria-label="특징">
+    <!-- Features -->
+    <section class="slide" aria-label="Características">
       <div class="inner">
-        <h2>특징</h2>
+        <h2>Características<span class="ko">특징</span></h2>
         <div class="rows">
-          <div class="row"><h3>자바스크립트</h3><p>익숙한 언어로 작성</p></div>
-          <div class="row"><h3>구글 서버</h3><p>내 컴퓨터에서 안 돌려도 됨</p></div>
-          <div class="row"><h3>구글 연동</h3><p>시트 · 메일 · 캘린더 · 폼</p></div>
+          <div class="row"><h3>JavaScript</h3><p>Se escribe en un lenguaje conocido<span class="ko">익숙한 언어로 작성</span></p></div>
+          <div class="row"><h3>Servidores de Google<span class="ko">구글 서버</span></h3><p>No necesita correr en tu computadora<span class="ko">내 컴퓨터에서 안 돌려도 됨</span></p></div>
+          <div class="row"><h3>Integración con Google<span class="ko">구글 연동</span></h3><p>Hojas · Gmail · Calendar · Formularios<span class="ko">시트 · 메일 · 캘린더 · 폼</span></p></div>
         </div>
       </div>
     </section>
 
-    <!-- 3. Benefits -->
-    <section class="slide" aria-label="장점">
+    <!-- Benefits -->
+    <section class="slide" aria-label="Ventajas">
       <div class="inner">
-        <h2>장점</h2>
+        <h2>Ventajas<span class="ko">장점</span></h2>
         <div class="rows">
-          <div class="row"><h3>무료</h3><p>구글 계정만 있으면 OK</p></div>
-          <div class="row"><h3>설치 없음</h3><p>브라우저에서 바로 개발</p></div>
-          <div class="row"><h3>자동화</h3><p>반복 작업을 알아서 처리</p></div>
-          <div class="row"><h3>공유</h3><p>링크 하나로 웹앱 배포</p></div>
+          <div class="row"><h3>Gratis<span class="ko">무료</span></h3><p>Solo necesitas una cuenta de Google<span class="ko">구글 계정만 있으면 OK</span></p></div>
+          <div class="row"><h3>Sin instalación<span class="ko">설치 없음</span></h3><p>Se programa directamente en el navegador<span class="ko">브라우저에서 바로 개발</span></p></div>
+          <div class="row"><h3>Automatización<span class="ko">자동화</span></h3><p>Hace por ti las tareas repetitivas<span class="ko">반복 작업을 알아서 처리</span></p></div>
+          <div class="row"><h3>Compartir<span class="ko">공유</span></h3><p>Publica tu app con un solo enlace<span class="ko">링크 하나로 웹앱 배포</span></p></div>
         </div>
       </div>
     </section>
 
-    <!-- 4. Site -->
-    <section class="slide" aria-label="사이트">
+    <!-- Start here -->
+    <section class="slide" aria-label="Empieza aquí">
       <div class="inner">
-        <h2>여기서 시작하세요</h2>
+        <h2>Empieza aquí<span class="ko">여기서 시작하세요</span></h2>
         <a class="link-box" href="https://script.google.com" target="_blank" rel="noopener">script.google.com</a>
-        <p class="note">구글 로그인 → <b>새 프로젝트</b></p>
+        <p class="note">Inicia sesión en Google → <b>Nuevo proyecto</b><span class="ko">구글 로그인 → 새 프로젝트</span></p>
       </div>
     </section>
 
-    <!-- 5. Files -->
-    <section class="slide" aria-label="만들 수 있는 파일">
+    <!-- Files -->
+    <section class="slide" aria-label="Archivos">
       <div class="inner">
-        <h2>이런 파일을 만들 수 있어요</h2>
+        <h2>Puedes crear estos archivos<span class="ko">이런 파일을 만들 수 있어요</span></h2>
         <div class="two">
           <div class="col">
-            <h3>자바스크립트 파일</h3>
-            <p class="tag">기능을 만드는 코드 (.gs)</p>
+            <h3>Archivo JavaScript<span class="ko">자바스크립트 파일</span></h3>
+            <p class="tag">Código que hace funcionar la app (.gs)<span class="ko">기능을 만드는 코드 (.gs)</span></p>
           </div>
           <div class="col alt">
-            <h3>HTML 파일</h3>
-            <p class="tag">화면을 만드는 웹페이지</p>
+            <h3>Archivo HTML<span class="ko">HTML 파일</span></h3>
+            <p class="tag">Página web que muestra la pantalla<span class="ko">화면을 만드는 웹페이지</span></p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Practice 1 intro -->
-    <section class="slide" aria-label="실습 1 돌림판">
+    <section class="slide" aria-label="Práctica 1 Ruleta">
       <div class="inner split">
         <div class="txt">
-          <h2>실습 1 : 돌림판 만들기</h2>
+          <h2>Práctica 1: Ruleta<span class="ko">실습 1 : 돌림판 만들기</span></h2>
           <div class="rows">
-            <div class="row"><h3>Code.gs</h3><p>페이지를 여는 역할</p></div>
-            <div class="row"><h3>index.html</h3><p>화면을 만드는 역할</p></div>
+            <div class="row"><h3>Code.gs</h3><p>Abre la página<span class="ko">페이지를 여는 역할</span></p></div>
+            <div class="row"><h3>index.html</h3><p>Crea la pantalla<span class="ko">화면을 만드는 역할</span></p></div>
           </div>
         </div>
         <div class="wheel-wrap" aria-hidden="true">
-          <svg class="wheel" viewBox="0 0 320 340" role="img" aria-label="돌림판 예시">
+          <svg class="wheel" viewBox="0 0 320 340" role="img" aria-label="Ejemplo de ruleta">
             <path d="M160 190 L90.0 68.8 A140 140 0 0 1 230.0 68.8 Z" style="fill:var(--g-blue);stroke:var(--stage);stroke-width:3"/>
-            <text transform="translate(160 190) rotate(-90)" x="126" y="6" text-anchor="end" style="fill:var(--stage);font-weight:700;font-size:17px;font-family:var(--font)">김철수</text>
+            <text transform="translate(160 190) rotate(-90)" x="126" y="6" text-anchor="end" style="fill:var(--stage);font-weight:700;font-size:17px;font-family:var(--font)">Ana</text>
             <path d="M160 190 L230.0 68.8 A140 140 0 0 1 300.0 190.0 Z" style="fill:var(--g-red);stroke:var(--stage);stroke-width:3"/>
-            <text transform="translate(160 190) rotate(-30)" x="126" y="6" text-anchor="end" style="fill:var(--stage);font-weight:700;font-size:17px;font-family:var(--font)">이영희</text>
+            <text transform="translate(160 190) rotate(-30)" x="126" y="6" text-anchor="end" style="fill:var(--stage);font-weight:700;font-size:17px;font-family:var(--font)">Luis</text>
             <path d="M160 190 L300.0 190.0 A140 140 0 0 1 230.0 311.2 Z" style="fill:var(--g-green);stroke:var(--stage);stroke-width:3"/>
-            <text transform="translate(160 190) rotate(30)" x="126" y="6" text-anchor="end" style="fill:var(--stage);font-weight:700;font-size:17px;font-family:var(--font)">박민수</text>
+            <text transform="translate(160 190) rotate(30)" x="126" y="6" text-anchor="end" style="fill:var(--stage);font-weight:700;font-size:17px;font-family:var(--font)">Sofia</text>
             <path d="M160 190 L230.0 311.2 A140 140 0 0 1 90.0 311.2 Z" style="fill:var(--g-blue);stroke:var(--stage);stroke-width:3"/>
-            <text transform="translate(160 190) rotate(90)" x="126" y="6" text-anchor="end" style="fill:var(--stage);font-weight:700;font-size:17px;font-family:var(--font)">최지우</text>
+            <text transform="translate(160 190) rotate(90)" x="126" y="6" text-anchor="end" style="fill:var(--stage);font-weight:700;font-size:17px;font-family:var(--font)">Mateo</text>
             <path d="M160 190 L90.0 311.2 A140 140 0 0 1 20.0 190.0 Z" style="fill:var(--g-red);stroke:var(--stage);stroke-width:3"/>
-            <text transform="translate(160 190) rotate(150)" x="126" y="6" text-anchor="end" style="fill:var(--stage);font-weight:700;font-size:17px;font-family:var(--font)">정하늘</text>
+            <text transform="translate(160 190) rotate(150)" x="126" y="6" text-anchor="end" style="fill:var(--stage);font-weight:700;font-size:17px;font-family:var(--font)">Camila</text>
             <path d="M160 190 L20.0 190.0 A140 140 0 0 1 90.0 68.8 Z" style="fill:var(--g-green);stroke:var(--stage);stroke-width:3"/>
-            <text transform="translate(160 190) rotate(210)" x="126" y="6" text-anchor="end" style="fill:var(--stage);font-weight:700;font-size:17px;font-family:var(--font)">한서윤</text>
+            <text transform="translate(160 190) rotate(210)" x="126" y="6" text-anchor="end" style="fill:var(--stage);font-weight:700;font-size:17px;font-family:var(--font)">Daniel</text>
             <circle cx="160" cy="190" r="18" style="fill:var(--stage);stroke:var(--line);stroke-width:2"/>
             <path d="M146 18 L174 18 L160 58 Z" style="fill:var(--ink)"/>
           </svg>
@@ -568,367 +548,1437 @@
       </div>
     </section>
 
-    <!-- Practice 1: ask Gemini (prompt, copy) -->
-    <section class="slide tight" aria-label="Gemini에게 물어보기">
+    <!-- Ruleta: Code.gs (copy) -->
+    <section class="slide tight" aria-label="Ruleta Code.gs">
       <div class="inner">
-        <h2>Gemini에게 물어보기</h2>
-        <div class="win wide prompt">
-          <div class="win-bar"><i></i><i></i><i></i><span>Gemini 프롬프트</span><button class="copy-btn" type="button" data-target="prompt-gemini" aria-live="polite">프롬프트 복사</button></div>
-<pre id="prompt-gemini">Google Apps Script 웹앱으로 돌림판을 만들어 줘. 스프레드시트 연동은 없고, 파일은 2개야.
-1) Code.gs : doGet()에서 index.html 열기, 제목 '돌림판', 모바일 viewport 설정
-2) index.html : canvas 돌림판, '돌리기' 버튼, 결과 표시, 항목 입력창(한 줄에 하나, 최대 12개)
-파일별로 코드블록을 나눠서, 설명 없이 코드만 줘.</pre>
+        <h2>Paso 1 · Code.gs<span class="ko">1단계 · Code.gs (돌림판)</span></h2>
+        <ol class="howto"><li><span>Borra todo lo que hay en <b>Code.gs</b> y pega este código<span class="ko">Code.gs 안의 내용을 모두 지우고 이 코드를 붙여넣기</span></span></li><li><span>Guarda con <b>Ctrl + S</b><span class="ko">Ctrl + S로 저장</span></span></li></ol>
+        <div class="win code">
+          <div class="win-bar"><i></i><i></i><i></i><span>Code.gs · 7 líneas · 7줄</span><button class="copy-btn" type="button" data-target="code-wheel-gs" aria-live="polite">Copiar · 복사</button></div>
+<pre id="code-wheel-gs">// Spin the Wheel app (no spreadsheet connection)
+// 2 files: Code.gs (opens the page) + index.html (wheel screen and behavior)
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('index')
+    .setTitle('Spin the Wheel')
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+}
+</pre>
         </div>
-        <div class="ask-flow">
-          <div class="ask"><span>프롬프트를 복사해서 Gemini에게 물어보기</span></div>
-          <span class="ar" aria-hidden="true">→</span>
-          <div class="ask"><span>나온 코드를 <b>Code.gs</b>와 <b>index.html</b>에 각각 붙여넣기<small>index.html은 + 버튼 → HTML → 이름 index로 추가</small></span></div>
+      </div>
+    </section>
+
+    <!-- Ruleta: index.html (copy) -->
+    <section class="slide tight" aria-label="Ruleta index.html">
+      <div class="inner">
+        <h2>Paso 2 · index.html<span class="ko">2단계 · index.html (돌림판)</span></h2>
+        <ol class="howto"><li><span>Botón <b>+</b> junto a Archivos → <b>HTML</b> → nombre: <b>index</b><span class="ko">파일 옆 + 버튼 → HTML → 이름: index</span></span></li><li><span>Borra todo, pega este código y guarda (<b>Ctrl + S</b>)<span class="ko">안을 모두 지우고 이 코드를 붙여넣은 뒤 저장</span></span></li></ol>
+        <div class="win code">
+          <div class="win-bar"><i></i><i></i><i></i><span>index.html · 183 líneas · 183줄</span><button class="copy-btn" type="button" data-target="code-wheel-html" aria-live="polite">Copiar · 복사</button></div>
+<pre id="code-wheel-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;base target="_top"&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;style&gt;
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #F2F5FA; color: #1C2434;
+    font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; text-align: center; }
+  h1 { font-size: 28px; margin: 0 0 12px; letter-spacing: -0.02em; }
+  canvas { width: 100%; max-width: 360px; height: auto; }
+  button {
+    font: inherit; font-weight: 700; cursor: pointer;
+    padding: 12px 32px; border: 0; border-radius: 10px;
+    background: #1A5FD0; color: #fff; font-size: 18px;
+  }
+  button:disabled { opacity: .5; cursor: default; }
+  button:focus-visible, textarea:focus-visible { outline: 3px solid #F29900; outline-offset: 2px; }
+  #result { min-height: 3rem; margin: 16px 0 0; font-size: 28px; font-weight: 900; }
+  label { display: block; margin: 20px 0 6px; font-weight: 700; }
+  textarea {
+    width: 100%; max-width: 360px; padding: 10px 12px; font: inherit;
+    border: 1px solid #D9DFEA; border-radius: 8px; resize: vertical;
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="wrap"&gt;
+  &lt;h1&gt;Spin the Wheel&lt;/h1&gt;
+  &lt;canvas id="wheel" aria-label="Spinning wheel"&gt;&lt;/canvas&gt;
+  &lt;div&gt;&lt;button id="spin" type="button" onclick="spin()"&gt;Spin&lt;/button&gt;&lt;/div&gt;
+  &lt;p id="result" role="status"&gt;&lt;/p&gt;
+
+  &lt;label for="items"&gt;Items (one per line)&lt;/label&gt;
+  &lt;textarea id="items" rows="7"&gt;Ana
+Luis
+Sofia
+Mateo
+Camila
+Daniel&lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  var W = 360, H = 380, CX = 180, CY = 200, R = 150;
+  var COLORS = ['#1A73E8', '#D93025', '#188038', '#7B3FBF', '#00796B', '#C25E00'];
+  var FONT_FAMILY = 'system-ui, "Segoe UI", Roboto, Arial, sans-serif';
+  var FONT = 'bold 18px ' + FONT_FAMILY;
+  var canvas = document.getElementById('wheel');
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  ctx.scale(dpr, dpr);
+
+  var items = [];
+  var rot = 0;
+  var spinning = false;
+
+  function readItems() {
+    items = document.getElementById('items').value
+      .split('\n')
+      .map(function (t) { return t.trim(); })
+      .filter(function (t) { return t; });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    if (items.length &lt; 2) {
+      ctx.beginPath();
+      ctx.arc(CX, CY, R, 0, Math.PI * 2);
+      ctx.fillStyle = '#D9DFEA';
+      ctx.fill();
+      ctx.fillStyle = '#5D6879';
+      ctx.font = FONT;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('Enter at least 2 items', CX, CY);
+      return;
+    }
+
+    var seg = (Math.PI * 2) / items.length;
+    // Shrink the label font as slices get thinner (18px max, 8px min)
+    var fontSize = Math.max(8, Math.min(18, Math.floor(R * 0.55 * seg)));
+    var maxChars = fontSize &gt;= 14 ? 10 : 14;
+    items.forEach(function (text, i) {
+      var a0 = rot + i * seg;
+      var a1 = a0 + seg;
+      var c = i % COLORS.length;
+      if (i === items.length - 1 &amp;&amp; c === 0 &amp;&amp; i &gt; 0) c = 2; // avoid matching the first slice's color
+
+      ctx.beginPath();
+      ctx.moveTo(CX, CY);
+      ctx.arc(CX, CY, R, a0, a1);
+      ctx.closePath();
+      ctx.fillStyle = COLORS[c];
+      ctx.fill();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.save();
+      ctx.translate(CX, CY);
+      ctx.rotate(a0 + seg / 2);
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold ' + fontSize + 'px ' + FONT_FAMILY;
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text.length &gt; maxChars ? text.slice(0, maxChars) + '…' : text, R - 16, 0);
+      ctx.restore();
+    });
+
+    // Center circle
+    ctx.beginPath();
+    ctx.arc(CX, CY, 18, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+
+    // Pointer at the top
+    ctx.beginPath();
+    ctx.moveTo(CX - 14, 22);
+    ctx.lineTo(CX + 14, 22);
+    ctx.lineTo(CX, 62);
+    ctx.closePath();
+    ctx.fillStyle = '#172033';
+    ctx.fill();
+  }
+
+  function spin() {
+    if (spinning) return;
+    readItems();
+    if (items.length &lt; 2) { draw(); return; }
+
+    spinning = true;
+    document.getElementById('spin').disabled = true;
+    document.getElementById('result').textContent = '';
+
+    var start = rot;
+    var total = Math.PI * 2 * (5 + Math.random() * 3); // 5–8 turns plus a random angle
+    var duration = 4000;
+    var t0 = null;
+
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3); // slow down gradually
+      rot = start + total * eased;
+      draw();
+      if (p &lt; 1) {
+        requestAnimationFrame(step);
+      } else {
+        finish();
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function finish() {
+    var seg = (Math.PI * 2) / items.length;
+    var pointer = Math.PI * 1.5; // the pointer sits at the top (12 o'clock)
+    var angle = (((pointer - rot) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+    var index = Math.floor(angle / seg);
+    document.getElementById('result').textContent = '🎉 ' + items[index];
+    document.getElementById('spin').disabled = false;
+    spinning = false;
+  }
+
+  document.getElementById('items').addEventListener('input', function () {
+    if (spinning) return;
+    readItems();
+    document.getElementById('result').textContent = '';
+    draw();
+  });
+
+  readItems();
+  draw();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
         </div>
       </div>
     </section>
 
     <!-- Practice 1 deploy -->
-    <section class="slide" aria-label="돌림판 배포">
+    <section class="slide" aria-label="Publicar la ruleta">
       <div class="inner">
-        <h2>웹앱으로 배포하기</h2>
+        <h2>Publicar como app web<span class="ko">웹앱으로 배포하기</span></h2>
         <ol class="steps">
-          <li><span>배포 → 새 배포 → 웹 앱</span></li>
-          <li><span>실행 사용자 <b>나</b> · 액세스 <b>모든 사용자</b></span></li>
-          <li><span>주소(URL)를 열어 돌림판 확인</span></li>
+          <li><span>Implementar → Nueva implementación → Aplicación web<span class="ko">배포 → 새 배포 → 웹 앱</span></span></li>
+          <li><span>Ejecutar como: <b>Yo</b> · Quién tiene acceso: <b>Cualquier usuario</b><span class="ko">실행 사용자: 나 · 액세스: 모든 사용자</span></span></li>
+          <li><span>Abre la URL y prueba la ruleta<span class="ko">주소(URL)를 열어 돌림판 확인</span></span></li>
         </ol>
       </div>
     </section>
 
     <!-- Part 2 divider -->
-    <section class="slide" aria-label="파트 2">
+    <section class="slide" aria-label="Parte 2">
       <div class="inner part p2">
         <div class="pnum" aria-hidden="true">2</div>
         <div>
-          <p class="plabel">파트 2</p>
-          <h2>스프레드시트 연동 게시판 만들기</h2>
+          <p class="plabel">Parte 2 · 파트 2</p>
+          <h2>Tablero de mensajes con Hojas de cálculo<span class="ko">스프레드시트 연동 게시판 만들기</span></h2>
         </div>
       </div>
     </section>
 
-    <!-- 7. Board goal -->
-    <section class="slide" aria-label="게시판 만들기">
+    <!-- Board goal -->
+    <section class="slide" aria-label="Práctica 2 Tablero">
       <div class="inner">
-        <h2>실습 2 : 게시판 만들기</h2>
+        <h2>Práctica 2: Tablero de mensajes<span class="ko">실습 2 : 게시판 만들기</span></h2>
         <div class="rows">
-          <div class="row"><h3>글쓰기</h3><p>누구나</p></div>
-          <div class="row"><h3>글 읽기</h3><p>선생님만</p></div>
-          <div class="row"><h3>댓글 · 삭제</h3><p>선생님만</p></div>
+          <div class="row"><h3>Escribir<span class="ko">글쓰기</span></h3><p>Cualquier persona<span class="ko">누구나</span></p></div>
+          <div class="row"><h3>Leer<span class="ko">글 읽기</span></h3><p>Solo el docente<span class="ko">선생님만</span></p></div>
+          <div class="row"><h3>Comentar · Borrar<span class="ko">댓글 · 삭제</span></h3><p>Solo el docente<span class="ko">선생님만</span></p></div>
         </div>
       </div>
     </section>
 
     <!-- Why spreadsheet -->
-    <section class="slide" aria-label="글 저장할 곳">
+    <section class="slide" aria-label="Dónde guardar">
       <div class="inner">
-        <h2>게시글은 어디에 저장할까요?</h2>
+        <h2>¿Dónde guardamos las publicaciones?<span class="ko">게시글은 어디에 저장할까요?</span></h2>
         <div class="rows">
-          <div class="row"><h3>필요</h3><p>게시글을 저장할 데이터베이스</p></div>
-          <div class="row"><h3>문제</h3><p>서버 구축과 설정에 시간과 지식이 필요</p></div>
-          <div class="row"><h3>해결</h3><p>구글 스프레드시트를 데이터베이스로 활용</p></div>
+          <div class="row"><h3>Necesidad<span class="ko">필요</span></h3><p>Una base de datos para guardar los mensajes<span class="ko">게시글을 저장할 데이터베이스</span></p></div>
+          <div class="row"><h3>Problema<span class="ko">문제</span></h3><p>Montar un servidor exige tiempo y conocimientos<span class="ko">서버 구축과 설정에 시간과 지식이 필요</span></p></div>
+          <div class="row"><h3>Solución<span class="ko">해결</span></h3><p>Usar Hojas de cálculo de Google como base de datos<span class="ko">구글 스프레드시트를 데이터베이스로 활용</span></p></div>
         </div>
       </div>
     </section>
 
     <!-- Spreadsheet as DB -->
-    <section class="slide" aria-label="스프레드시트는 간단한 데이터베이스">
+    <section class="slide" aria-label="La hoja como base de datos">
       <div class="inner">
-        <h2>스프레드시트가 간단한 데이터베이스 역할을 해요</h2>
+        <h2>La hoja de cálculo funciona como base de datos<span class="ko">스프레드시트가 간단한 데이터베이스 역할을 해요</span></h2>
         <div class="tscroll">
-          <table class="sheet db" aria-label="게시판 시트 예시">
-            <thead><tr><th>번호</th><th>이름</th><th>제목</th><th>내용</th><th>댓글</th></tr></thead>
+          <table class="sheet db" aria-label="Ejemplo de la hoja Board">
+            <thead><tr><th>No.</th><th>Name</th><th>Title</th><th>Content</th><th>Comments</th></tr></thead>
             <tbody>
-              <tr><td>1</td><td>김철수</td><td>안녕하세요</td><td>첫 글이에요!</td><td>환영해요</td></tr>
-              <tr><td>2</td><td>이영희</td><td>질문 있어요</td><td>숙제가 뭐예요?</td><td></td></tr>
+              <tr><td>1</td><td>Ana</td><td>Hola</td><td>¡Mi primer mensaje!</td><td>¡Bienvenida!</td></tr>
+              <tr><td>2</td><td>Luis</td><td>Pregunta</td><td>¿Cuál es la tarea?</td><td></td></tr>
             </tbody>
           </table>
         </div>
-        <p class="cap">한 줄이 글 하나, 사용자가 글을 남기면 새 줄이 생겨요</p>
+        <p class="cap">Cada fila es un mensaje; al publicar se añade una fila nueva<span class="ko">한 줄이 글 하나, 사용자가 글을 남기면 새 줄이 생겨요</span></p>
       </div>
     </section>
 
-    <!-- 8. Roles -->
-    <section class="slide" aria-label="파일의 역할">
+    <!-- Roles -->
+    <section class="slide" aria-label="Función de los archivos">
       <div class="inner">
-        <h2>파일은 두 개, 역할이 달라요</h2>
+        <h2>Dos archivos con funciones distintas<span class="ko">파일은 두 개, 역할이 달라요</span></h2>
         <div class="flow">
-          <div class="box b1"><b>index.html</b><span>화면<br>글 쓰는 곳</span></div>
+          <div class="box b1"><b>index.html</b><span>Pantalla<br>Donde se escribe<small class="ko">화면 · 글 쓰는 곳</small></span></div>
           <div class="ar" aria-hidden="true">→</div>
-          <div class="box b2"><b>Code.gs</b><span>처리<br>저장 · 확인 · 삭제</span></div>
+          <div class="box b2"><b>Code.gs</b><span>Proceso<br>Guardar · verificar · borrar<small class="ko">처리 · 저장 · 확인 · 삭제</small></span></div>
           <div class="ar" aria-hidden="true">→</div>
-          <div class="box b3"><b>스프레드시트</b><span>저장소<br>글이 쌓이는 곳</span></div>
+          <div class="box b3"><b>Hoja de cálculo</b><span>Almacén<br>Donde se acumulan<small class="ko">스프레드시트 · 글이 쌓이는 곳</small></span></div>
         </div>
-        <p class="note">Code.gs는 자바스크립트로 쓴 파일이에요.</p>
+        <p class="note">Code.gs es un archivo escrito en JavaScript.<span class="ko">Code.gs는 자바스크립트로 쓴 파일이에요.</span></p>
       </div>
     </section>
 
     <!-- Part 2 start -->
-    <section class="slide" aria-label="시작하기">
+    <section class="slide" aria-label="Empezar">
       <div class="inner">
-        <h2>시작하기 : 스프레드시트 만들기</h2>
+        <h2>Empezar: crear la hoja de cálculo<span class="ko">시작하기 : 스프레드시트 만들기</span></h2>
         <ol class="steps">
-          <li><span>구글 스프레드시트를 새로 만들기</span></li>
-          <li><span>상단 메뉴에서 확장 프로그램 → Apps Script</span></li>
-          <li><span>Code.gs 파일이 열리면 준비 완료</span></li>
+          <li><span>Crea una nueva Hoja de cálculo de Google<span class="ko">구글 스프레드시트를 새로 만들기</span></span></li>
+          <li><span>En el menú: Extensiones → Apps Script<span class="ko">상단 메뉴에서 확장 프로그램 → Apps Script</span></span></li>
+          <li><span>Cuando se abra Code.gs, ¡todo listo!<span class="ko">Code.gs 파일이 열리면 준비 완료</span></span></li>
         </ol>
-        <p class="note">이렇게 열면 스프레드시트와 자동으로 연결됩니다.</p>
+        <p class="note">Al abrirlo así, queda conectado automáticamente a la hoja.<span class="ko">이렇게 열면 스프레드시트와 자동으로 연결됩니다.</span></p>
       </div>
     </section>
 
-    <!-- Part 2: ask Gemini (prompt, copy) -->
-    <section class="slide tight" aria-label="게시판 Gemini에게 물어보기">
+    <!-- Tablero: Code.gs (copy) -->
+    <section class="slide tight" aria-label="Tablero Code.gs">
       <div class="inner">
-        <h2>Gemini에게 물어보기</h2>
-        <div class="win wide prompt long">
-          <div class="win-bar"><i></i><i></i><i></i><span>Gemini 프롬프트</span><button class="copy-btn" type="button" data-target="prompt-gemini-board" aria-live="polite">프롬프트 복사</button></div>
-<pre id="prompt-gemini-board">Google 스프레드시트에서 연 Apps Script로 '우리 반 게시판' 웹앱을 만들어 줘. 파일은 2개야.
+        <h2>Paso 1 · Code.gs<span class="ko">1단계 · Code.gs (게시판)</span></h2>
+        <ol class="howto"><li><span>Borra todo lo que hay en <b>Code.gs</b> y pega este código<span class="ko">Code.gs 안의 내용을 모두 지우고 이 코드를 붙여넣기</span></span></li><li><span>Cambia la contraseña de la línea 6 (<b>TEACHER_PASSWORD</b>)<span class="ko">6번째 줄 비밀번호(TEACHER_PASSWORD)를 내 것으로 바꾸기</span></span></li><li><span>Guarda con <b>Ctrl + S</b><span class="ko">Ctrl + S로 저장</span></span></li></ol>
+        <div class="win code">
+          <div class="win-bar"><i></i><i></i><i></i><span>Code.gs · 166 líneas · 166줄</span><button class="copy-btn" type="button" data-target="code-board-gs" aria-live="polite">Copiar · 복사</button></div>
+<pre id="code-board-gs">// Class Board (Google Sheets + Apps Script practice)
+//
+// - Writing a post: anyone
+// - Reading posts / commenting / deleting: teacher only (password required)
+// ★ Be sure to change this to a password only you know.
+const TEACHER_PASSWORD = '1234';
 
-[Code.gs]
-- 맨 위에 선생님 비밀번호 상수(TEACHER_PASSWORD) 두기
-- '게시판' 시트에 글 저장 (없으면 제목 줄과 함께 자동 생성)
-  열 : 번호, 작성일시, 이름, 제목, 내용, 댓글
-- 글쓰기는 누구나 (빈칸·글자 수 검사, 동시에 써도 겹치지 않게)
-- 글 목록(최신순) · 댓글 · 삭제는 선생님만, 비밀번호는 서버에서 확인
+// Spreadsheet ID (optional)
+// If you opened this from the spreadsheet via [Extensions → Apps Script], leave it empty.
+// If you created the project directly at script.google.com, paste the long string
+// between /d/ and /edit in the spreadsheet's URL here.
+const SPREADSHEET_ID = '';
 
-[index.html]
-- 탭 2개 : 글쓰기 / 선생님 전용
-- 글쓰기 : 이름·제목·내용 입력 + '글 남기기' 버튼, 결과 메시지
-- 선생님 전용 : 비밀번호로 입장 → 글 목록, 댓글 등록, 삭제(확인창)
-- 글 내용은 textContent로 표시, 모바일에서도 잘 보이게
-파일별로 코드블록을 나눠서, 설명 없이 코드만 줘.</pre>
+// Name of the sheet where posts are stored (created automatically if missing)
+const SHEET_NAME = 'Board';
+
+// Time zone
+const TIME_ZONE = 'America/Bogota';
+
+// ---------------------------------------------------------------
+// Open the web app
+// ---------------------------------------------------------------
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('index')
+    .setTitle('Class Board')
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+}
+
+// ---------------------------------------------------------------
+// What anyone can do: leave a post
+// ---------------------------------------------------------------
+function addPost(name, title, content) {
+  name = clean_(name, 20, 'Name');
+  title = clean_(title, 50, 'Title');
+  content = clean_(content, 1000, 'Content');
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000); // handle posts one at a time so simultaneous writes don't collide
+  try {
+    const sheet = getSheet_();
+    const row = sheet.getLastRow() + 1;
+    const id = row === 2 ? 1 : Number(sheet.getRange(row - 1, 1).getValue()) + 1;
+    const time = Utilities.formatDate(new Date(), TIME_ZONE, 'yyyy-MM-dd HH:mm');
+
+    const range = sheet.getRange(row, 1, 1, 6);
+    range.setNumberFormat('@'); // store as plain text (text starting with = or + won't become a formula)
+    range.setValues([[String(id), time, name, title, content, '']]);
+  } finally {
+    lock.releaseLock();
+  }
+  return true;
+}
+
+// ---------------------------------------------------------------
+// What only the teacher can do
+// ---------------------------------------------------------------
+
+// Read the list of posts (newest first)
+function getPosts(password) {
+  checkTeacher_(password);
+  const sheet = getSheet_();
+  const lastRow = sheet.getLastRow();
+  if (lastRow &lt; 2) return [];
+
+  const values = sheet.getRange(2, 1, lastRow - 1, 6).getValues();
+  return values
+    .map(function (r) {
+      return {
+        id: String(r[0]),
+        time: String(r[1]),
+        name: String(r[2]),
+        title: String(r[3]),
+        content: String(r[4]),
+        comment: String(r[5])
+      };
+    })
+    .reverse();
+}
+
+// Add a comment (multiple comments stack up underneath)
+function addComment(password, id, text) {
+  checkTeacher_(password);
+  text = clean_(text, 300, 'Comment');
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sheet = getSheet_();
+    const row = findRow_(sheet, id);
+    if (row === -1) throw new Error('Post not found. It may have already been deleted.');
+
+    const cell = sheet.getRange(row, 6);
+    const stamp = Utilities.formatDate(new Date(), TIME_ZONE, 'MM-dd HH:mm');
+    const line = '[' + stamp + '] ' + text;
+    const old = String(cell.getValue());
+    cell.setNumberFormat('@');
+    cell.setValue(old ? old + '\n' + line : line);
+  } finally {
+    lock.releaseLock();
+  }
+  return true;
+}
+
+// Delete a post
+function deletePost(password, id) {
+  checkTeacher_(password);
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sheet = getSheet_();
+    const row = findRow_(sheet, id);
+    if (row === -1) throw new Error('Post not found. It may have already been deleted.');
+    sheet.deleteRow(row);
+  } finally {
+    lock.releaseLock();
+  }
+  return true;
+}
+
+// ---------------------------------------------------------------
+// Helper functions (a name ending in _ can't be called from the page)
+// ---------------------------------------------------------------
+
+// Check the password — throws an error if wrong, so the code below it never runs
+function checkTeacher_(password) {
+  if (password !== TEACHER_PASSWORD) {
+    throw new Error('Incorrect password.');
+  }
+}
+
+// Get the board sheet (creates it with a header row if missing)
+function getSheet_() {
+  const ss = SPREADSHEET_ID
+    ? SpreadsheetApp.openById(SPREADSHEET_ID)
+    : SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) {
+    throw new Error('Spreadsheet not found. Check SPREADSHEET_ID at the top of Code.gs.');
+  }
+  let sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_NAME);
+    sheet.appendRow(['No.', 'Date', 'Name', 'Title', 'Content', 'Comments']);
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+// Find the row number of a post by its id (-1 if not found)
+function findRow_(sheet, id) {
+  const lastRow = sheet.getLastRow();
+  if (lastRow &lt; 2) return -1;
+  const ids = sheet.getRange(2, 1, lastRow - 1, 1).getValues();
+  for (let i = 0; i &lt; ids.length; i++) {
+    if (String(ids[i][0]) === String(id)) return i + 2;
+  }
+  return -1;
+}
+
+// Tidy up input: trim spaces, check it's not empty or too long
+function clean_(value, max, label) {
+  const text = String(value || '').trim();
+  if (!text) throw new Error('Please fill in the ' + label.toLowerCase() + '.');
+  if (text.length &gt; max) throw new Error(label + ' can be up to ' + max + ' characters.');
+  return text;
+}
+</pre>
         </div>
-        <div class="ask-flow">
-          <div class="ask"><span>프롬프트를 복사해서 Gemini에게 물어보기</span></div>
-          <span class="ar" aria-hidden="true">→</span>
-          <div class="ask"><span>나온 코드 2개는 다음 장에서 붙여넣기<small><b>Code.gs</b> → <b>index.html</b> 순서</small></span></div>
+      </div>
+    </section>
+
+    <!-- Tablero: index.html (copy) -->
+    <section class="slide tight" aria-label="Tablero index.html">
+      <div class="inner">
+        <h2>Paso 2 · index.html<span class="ko">2단계 · index.html (게시판)</span></h2>
+        <ol class="howto"><li><span>Botón <b>+</b> junto a Archivos → <b>HTML</b> → nombre: <b>index</b><span class="ko">파일 옆 + 버튼 → HTML → 이름: index</span></span></li><li><span>Borra todo, pega este código y guarda (<b>Ctrl + S</b>)<span class="ko">안을 모두 지우고 이 코드를 붙여넣은 뒤 저장</span></span></li></ol>
+        <div class="win code">
+          <div class="win-bar"><i></i><i></i><i></i><span>index.html · 286 líneas · 286줄</span><button class="copy-btn" type="button" data-target="code-board-html" aria-live="polite">Copiar · 복사</button></div>
+<pre id="code-board-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;base target="_top"&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;style&gt;
+  :root {
+    --bg: #F2F5FA;
+    --card: #FFFFFF;
+    --ink: #1C2434;
+    --muted: #5D6879;
+    --line: #D9DFEA;
+    --accent: #1A5FD0;
+    --accent-soft: #E3ECFC;
+    --danger: #C5221F;
+    --note: #FFF6D6;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 28px; margin: 0 0 16px; letter-spacing: -0.02em; }
+
+  .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+  .tab {
+    flex: 1; padding: 12px; font: inherit; font-weight: 700;
+    border: 1px solid var(--line); background: var(--card); color: var(--muted);
+    border-radius: 10px; cursor: pointer;
+  }
+  .tab.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+  label { display: block; font-weight: 700; margin: 14px 0 6px; }
+  label:first-child { margin-top: 0; }
+  input, textarea {
+    width: 100%; padding: 10px 12px; font: inherit; color: inherit;
+    background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+  }
+  textarea { resize: vertical; }
+  button { font: inherit; cursor: pointer; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 3px solid #F29900; outline-offset: 2px;
+  }
+  .primary {
+    margin-top: 16px; padding: 12px 22px; font-weight: 700;
+    background: var(--accent); color: #fff; border: 0; border-radius: 8px;
+  }
+  .primary:disabled { opacity: .5; cursor: default; }
+  .msg { margin: 12px 0 0; min-height: 1.6em; font-weight: 500; }
+  .msg.ok { color: #188038; }
+  .msg.err { color: var(--danger); }
+
+  .bar { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .bar button {
+    padding: 6px 12px; background: var(--card); border: 1px solid var(--line);
+    border-radius: 8px; margin-left: 6px;
+  }
+
+  .post { border-top: 1px solid var(--line); padding: 18px 0; }
+  .post:first-child { border-top: 0; padding-top: 0; }
+  .post-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .post-head h2 { font-size: 20px; margin: 0; letter-spacing: -0.01em; }
+  .del {
+    flex: none; padding: 4px 12px; background: var(--card);
+    color: var(--danger); border: 1px solid var(--danger); border-radius: 8px;
+  }
+  .meta { margin: 2px 0 10px; color: var(--muted); font-size: 14px; }
+  .meta span + span { margin-left: 12px; }
+  .body { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .comment {
+    margin: 12px 0 0; padding: 10px 12px; background: var(--note);
+    border-radius: 8px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 15px;
+  }
+  .cform { display: flex; gap: 8px; margin-top: 12px; }
+  .cform button {
+    flex: none; padding: 0 14px; background: var(--accent-soft); color: var(--accent);
+    border: 0; border-radius: 8px; font-weight: 700;
+  }
+  .empty { text-align: center; color: var(--muted); padding: 24px 0; margin: 0; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="wrap"&gt;
+  &lt;h1&gt;Class Board Practice&lt;/h1&gt;
+
+  &lt;div class="tabs"&gt;
+    &lt;button id="tab-write" class="tab on" type="button" onclick="showTab('write')"&gt;Write&lt;/button&gt;
+    &lt;button id="tab-teacher" class="tab" type="button" onclick="showTab('teacher')"&gt;Teacher Only&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Anyone: write a post --&gt;
+  &lt;section id="panel-write" class="panel"&gt;
+    &lt;label for="name"&gt;Name&lt;/label&gt;
+    &lt;input id="name" maxlength="20" autocomplete="off"&gt;
+    &lt;label for="title"&gt;Title&lt;/label&gt;
+    &lt;input id="title" maxlength="50" autocomplete="off"&gt;
+    &lt;label for="content"&gt;Content&lt;/label&gt;
+    &lt;textarea id="content" rows="6" maxlength="1000"&gt;&lt;/textarea&gt;
+    &lt;button id="send" class="primary" type="button" onclick="sendPost()"&gt;Post&lt;/button&gt;
+    &lt;p id="write-msg" class="msg" role="status"&gt;&lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;!-- Teacher only: read · comment · delete --&gt;
+  &lt;section id="panel-teacher" class="panel" hidden&gt;
+    &lt;div id="login"&gt;
+      &lt;label for="pw"&gt;Teacher password&lt;/label&gt;
+      &lt;input id="pw" type="password" autocomplete="off" onkeydown="if (event.key === 'Enter') login()"&gt;
+      &lt;button class="primary" type="button" onclick="login()"&gt;Enter&lt;/button&gt;
+      &lt;p id="login-msg" class="msg" role="status"&gt;&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div id="admin" hidden&gt;
+      &lt;div class="bar"&gt;
+        &lt;strong id="count"&gt;&lt;/strong&gt;
+        &lt;span&gt;
+          &lt;button type="button" onclick="loadPosts()"&gt;Refresh&lt;/button&gt;
+          &lt;button type="button" onclick="logout()"&gt;Log out&lt;/button&gt;
+        &lt;/span&gt;
+      &lt;/div&gt;
+      &lt;p id="admin-msg" class="msg" role="status"&gt;&lt;/p&gt;
+      &lt;div id="list"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  // After logging in, the password is kept here briefly and sent with every request to the server.
+  // (The server only sends posts back when the password is correct.)
+  var pw = '';
+
+  function $(id) { return document.getElementById(id); }
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text; // textContent: any HTML in a post is shown as text, never run
+    return node;
+  }
+
+  function setMsg(id, text, type) {
+    var node = $(id);
+    node.textContent = text || '';
+    node.className = 'msg' + (type ? ' ' + type : '');
+  }
+
+  function errText(e) {
+    return (e &amp;&amp; e.message ? e.message : String(e)).replace(/^Error:\s*/, '');
+  }
+
+  // ---------- Tabs ----------
+  function showTab(name) {
+    $('panel-write').hidden = name !== 'write';
+    $('panel-teacher').hidden = name !== 'teacher';
+    $('tab-write').className = 'tab' + (name === 'write' ? ' on' : '');
+    $('tab-teacher').className = 'tab' + (name === 'teacher' ? ' on' : '');
+  }
+
+  // ---------- Write a post (anyone) ----------
+  function sendPost() {
+    var name = $('name').value, title = $('title').value, content = $('content').value;
+    if (!name.trim() || !title.trim() || !content.trim()) {
+      setMsg('write-msg', 'Please fill in your name, title, and content.', 'err');
+      return;
+    }
+    $('send').disabled = true;
+    setMsg('write-msg', 'Sending…');
+    google.script.run
+      .withSuccessHandler(function () {
+        $('send').disabled = false;
+        $('name').value = ''; $('title').value = ''; $('content').value = '';
+        setMsg('write-msg', 'Your post has been submitted!', 'ok');
+      })
+      .withFailureHandler(function (e) {
+        $('send').disabled = false;
+        setMsg('write-msg', errText(e), 'err');
+      })
+      .addPost(name, title, content);
+  }
+
+  // ---------- Teacher login ----------
+  function login() {
+    var input = $('pw').value;
+    if (!input) { setMsg('login-msg', 'Please enter the password.', 'err'); return; }
+    setMsg('login-msg', 'Checking…');
+    google.script.run
+      .withSuccessHandler(function (posts) {
+        pw = input;
+        $('pw').value = '';
+        setMsg('login-msg', '');
+        $('login').hidden = true;
+        $('admin').hidden = false;
+        render(posts);
+      })
+      .withFailureHandler(function (e) { setMsg('login-msg', errText(e), 'err'); })
+      .getPosts(input);
+  }
+
+  function logout() {
+    pw = '';
+    $('admin').hidden = true;
+    $('login').hidden = false;
+    $('list').textContent = '';
+    setMsg('admin-msg', '');
+  }
+
+  // ---------- Post list ----------
+  function loadPosts() {
+    setMsg('admin-msg', 'Loading…');
+    google.script.run
+      .withSuccessHandler(function (posts) { setMsg('admin-msg', ''); render(posts); })
+      .withFailureHandler(function (e) { setMsg('admin-msg', errText(e), 'err'); })
+      .getPosts(pw);
+  }
+
+  function render(posts) {
+    $('count').textContent = posts.length + (posts.length === 1 ? ' post' : ' posts');
+    var list = $('list');
+    list.textContent = '';
+    if (!posts.length) {
+      list.appendChild(el('p', 'empty', 'No posts yet.'));
+      return;
+    }
+    posts.forEach(function (p) { list.appendChild(buildPost(p)); });
+  }
+
+  function buildPost(p) {
+    var art = el('article', 'post');
+
+    var head = el('div', 'post-head');
+    head.appendChild(el('h2', '', p.title));
+    var del = el('button', 'del', 'Delete');
+    del.type = 'button';
+    del.onclick = function () { removePost(p.id); };
+    head.appendChild(del);
+    art.appendChild(head);
+
+    var meta = el('p', 'meta');
+    meta.appendChild(el('span', '', p.name));
+    meta.appendChild(el('span', '', p.time));
+    art.appendChild(meta);
+
+    art.appendChild(el('p', 'body', p.content));
+    if (p.comment) art.appendChild(el('p', 'comment', p.comment));
+
+    var form = el('div', 'cform');
+    var input = document.createElement('input');
+    input.placeholder = 'Add a comment';
+    input.maxLength = 300;
+    input.setAttribute('aria-label', 'Comment');
+    var btn = el('button', '', 'Add');
+    btn.type = 'button';
+    btn.onclick = function () { sendComment(p.id, input.value, btn); };
+    input.onkeydown = function (e) { if (e.key === 'Enter') btn.click(); };
+    form.appendChild(input);
+    form.appendChild(btn);
+    art.appendChild(form);
+
+    return art;
+  }
+
+  // ---------- Comment · delete (teacher only) ----------
+  function sendComment(id, text, btn) {
+    if (!text.trim()) return;
+    btn.disabled = true;
+    google.script.run
+      .withSuccessHandler(function () { loadPosts(); })
+      .withFailureHandler(function (e) { btn.disabled = false; setMsg('admin-msg', errText(e), 'err'); })
+      .addComment(pw, id, text);
+  }
+
+  function removePost(id) {
+    if (!confirm('Delete this post? This cannot be undone.')) return;
+    google.script.run
+      .withSuccessHandler(function () { loadPosts(); })
+      .withFailureHandler(function (e) { setMsg('admin-msg', errText(e), 'err'); })
+      .deletePost(pw, id);
+  }
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
         </div>
       </div>
     </section>
 
-    <!-- 9. Make Code.gs -->
-    <section class="slide" aria-label="Code.gs 만들기">
+    <!-- Deploy (board) -->
+    <section class="slide" aria-label="Publicar el tablero">
       <div class="inner">
-        <h2>Code.gs 만들기</h2>
+        <h2>Publicar<span class="ko">배포하기</span></h2>
         <ol class="steps">
-          <li><span>Gemini가 준 <b>Code.gs</b> 코드를 복사해서, 안을 지우고 붙여 넣기</span></li>
-          <li><span>맨 위 비밀번호를 내 것으로 바꾸기</span></li>
-          <li><span>저장하기 (Ctrl + S)</span></li>
+          <li><span>Implementar → Nueva implementación → Aplicación web (igual que en la Práctica 1)<span class="ko">배포 → 새 배포 → 웹 앱 (설정은 실습 1과 동일)</span></span></li>
+          <li><span>Autoriza el acceso a la hoja de cálculo<span class="ko">스프레드시트 접근 권한 승인</span></span></li>
+          <li><span>Comparte la URL con tus estudiantes<span class="ko">주소(URL)를 학생에게 공유</span></span></li>
         </ol>
+        <p class="note">Si cambias el código: Administrar implementaciones → Editar → <b>Nueva versión</b>.<span class="ko">코드를 고친 뒤에는 배포 관리 → 수정 → 새 버전으로 다시 배포합니다.</span></p>
       </div>
     </section>
 
-    <!-- 10. Make index.html -->
-    <section class="slide" aria-label="index.html 만들기">
+    <!-- Sharing settings (board) -->
+    <section class="slide" aria-label="Permisos para compartir">
       <div class="inner">
-        <h2>index.html 만들기</h2>
-        <ol class="steps">
-          <li><span>왼쪽 파일 옆 + 버튼 → HTML</span></li>
-          <li><span>이름을 index로 정하기</span></li>
-          <li><span>Gemini가 준 <b>index.html</b> 코드를 복사해서, 안을 지우고 붙여 넣기</span></li>
-        </ol>
-        <p class="note">이름은 꼭 <b>index.html</b>로 해야 합니다. Code.gs가 이 이름으로 화면을 찾아요.</p>
-      </div>
-    </section>
-
-    <!-- 11. Deploy -->
-    <section class="slide" aria-label="배포하기">
-      <div class="inner">
-        <h2>배포하기</h2>
-        <ol class="steps">
-          <li><span>배포 → 새 배포 → 웹 앱 (설정은 실습 1과 동일)</span></li>
-          <li><span>스프레드시트 접근 권한 승인</span></li>
-          <li><span>주소(URL)를 학생에게 공유</span></li>
-        </ol>
-        <p class="note">코드를 고친 뒤에는 새 버전으로 다시 배포합니다.</p>
-      </div>
-    </section>
-
-    <!-- Sharing settings -->
-    <section class="slide" aria-label="공유 설정 확인">
-      <div class="inner">
-        <h2>공유 설정 확인</h2>
+        <h2>Revisa los permisos<span class="ko">공유 설정 확인</span></h2>
         <div class="rows">
-          <div class="row"><h3>스프레드시트</h3><p>나만 접근 (일반 액세스: 제한됨)</p></div>
-          <div class="row"><h3>학생</h3><p>웹앱 주소로만 접속 (시트 권한 불필요)</p></div>
-          <div class="row"><h3>웹앱 액세스</h3><p>모든 사용자</p></div>
+          <div class="row"><h3>Hoja de cálculo<span class="ko">스프레드시트</span></h3><p>Solo tú (Acceso general: Restringido)<span class="ko">나만 접근 (일반 액세스: 제한됨)</span></p></div>
+          <div class="row"><h3>Estudiantes<span class="ko">학생</span></h3><p>Entran solo por la URL de la app (sin permiso en la hoja)<span class="ko">웹앱 주소로만 접속 (시트 권한 불필요)</span></p></div>
+          <div class="row"><h3>Acceso a la app<span class="ko">웹앱 액세스</span></h3><p>Cualquier usuario<span class="ko">모든 사용자</span></p></div>
         </div>
       </div>
     </section>
 
     <!-- Part 3 divider -->
-    <section class="slide" aria-label="파트 3">
+    <section class="slide" aria-label="Parte 3">
       <div class="inner part p3">
         <div class="pnum" aria-hidden="true">3</div>
         <div>
-          <p class="plabel">파트 3</p>
-          <h2>미사일 피하기 게임 만들기</h2>
+          <p class="plabel">Parte 3 · 파트 3</p>
+          <h2>Juego: esquiva los misiles<span class="ko">미사일 피하기 게임 만들기</span></h2>
         </div>
       </div>
     </section>
 
     <!-- Practice 3 goal -->
-    <section class="slide" aria-label="실습 3 목표">
+    <section class="slide" aria-label="Práctica 3">
       <div class="inner">
-        <h2>실습 3 : 미사일 피하기 게임</h2>
+        <h2>Práctica 3: Esquiva los misiles<span class="ko">실습 3 : 미사일 피하기 게임</span></h2>
         <div class="rows">
-          <div class="row"><h3>게임 플레이</h3><p>사방에서 날아오는 미사일을 최대한 오래 피하기</p></div>
-          <div class="row"><h3>점수 저장</h3><p>이름과 생존 점수를 스프레드시트에 기록</p></div>
-          <div class="row"><h3>랭킹 보기</h3><p>가장 오래 살아남은 순서로 확인</p></div>
+          <div class="row"><h3>Jugar<span class="ko">게임 플레이</span></h3><p>Esquiva los misiles el mayor tiempo posible<span class="ko">사방에서 날아오는 미사일을 최대한 오래 피하기</span></p></div>
+          <div class="row"><h3>Guardar récord<span class="ko">기록 저장</span></h3><p>El nombre y el tiempo de supervivencia se guardan en la hoja<span class="ko">이름과 생존 시간을 스프레드시트에 기록</span></p></div>
+          <div class="row"><h3>Ranking<span class="ko">랭킹 보기</span></h3><p>Ordenado por quién sobrevivió más tiempo<span class="ko">가장 오래 살아남은 순서로 확인</span></p></div>
         </div>
       </div>
     </section>
 
     <!-- Why spreadsheet ranking -->
-    <section class="slide" aria-label="기록은 어디에 저장할까요">
+    <section class="slide" aria-label="Dónde guardar los récords">
       <div class="inner">
-        <h2>기록은 어디에 저장할까요?</h2>
+        <h2>¿Dónde guardamos los récords?<span class="ko">기록은 어디에 저장할까요?</span></h2>
         <div class="rows">
-          <div class="row"><h3>필요</h3><p>누가 몇 점을 냈는지 기록할 곳</p></div>
-          <div class="row"><h3>문제</h3><p>점수를 매번 손으로 적어 두기 번거로움</p></div>
-          <div class="row"><h3>해결</h3><p>구글 스프레드시트를 랭킹판으로 활용</p></div>
+          <div class="row"><h3>Necesidad<span class="ko">필요</span></h3><p>Un lugar para registrar cuánto aguantó cada quien<span class="ko">누가 얼마나 오래 버텼는지 기록할 곳</span></p></div>
+          <div class="row"><h3>Problema<span class="ko">문제</span></h3><p>Anotar los récords a mano es tedioso<span class="ko">기록을 매번 손으로 적어 두기 번거로움</span></p></div>
+          <div class="row"><h3>Solución<span class="ko">해결</span></h3><p>Usar la hoja de cálculo como tabla de clasificación<span class="ko">구글 스프레드시트를 랭킹판으로 활용</span></p></div>
         </div>
       </div>
     </section>
 
     <!-- Ranking sheet example -->
-    <section class="slide" aria-label="랭킹 시트 예시">
+    <section class="slide" aria-label="Ejemplo de la hoja Records">
       <div class="inner">
-        <h2>스프레드시트가 랭킹판이 돼요</h2>
+        <h2>La hoja se convierte en el ranking<span class="ko">스프레드시트가 랭킹판이 돼요</span></h2>
         <div class="tscroll">
-          <table class="sheet db" aria-label="기록 시트 예시">
-            <thead><tr><th>이름</th><th>점수</th><th>일시</th></tr></thead>
+          <table class="sheet db" aria-label="Ejemplo de la hoja Records">
+            <thead><tr><th>Name</th><th>Time (s)</th><th>Date</th></tr></thead>
             <tbody>
-              <tr><td>김철수</td><td>1280</td><td>2026-09-29 10:12</td></tr>
-              <tr><td>이영희</td><td>2460</td><td>2026-09-29 10:15</td></tr>
+              <tr><td>Ana</td><td>42.3</td><td>2026-09-29 10:12</td></tr>
+              <tr><td>Luis</td><td>37.1</td><td>2026-09-29 10:15</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="cap">게임이 끝날 때마다 새 줄이 자동으로 추가돼요</p>
+        <p class="cap">Cada vez que termina una partida se añade una fila nueva<span class="ko">게임이 끝날 때마다 새 줄이 자동으로 추가돼요</span></p>
       </div>
     </section>
 
-    <!-- File roles -->
-    <section class="slide" aria-label="파일의 역할 (게임)">
+    <!-- File roles (game) -->
+    <section class="slide" aria-label="Función de los archivos (juego)">
       <div class="inner">
-        <h2>파일은 두 개, 역할이 달라요</h2>
+        <h2>Dos archivos con funciones distintas<span class="ko">파일은 두 개, 역할이 달라요</span></h2>
         <div class="flow">
-          <div class="box b1"><b>index.html</b><span>화면<br>게임 플레이</span></div>
+          <div class="box b1"><b>index.html</b><span>Pantalla<br>Donde se juega<small class="ko">화면 · 게임 플레이</small></span></div>
           <div class="ar" aria-hidden="true">→</div>
-          <div class="box b2"><b>Code.gs</b><span>처리<br>점수 저장 · 랭킹 계산</span></div>
+          <div class="box b2"><b>Code.gs</b><span>Proceso<br>Guardar récord · calcular ranking<small class="ko">처리 · 기록 저장 · 랭킹 계산</small></span></div>
           <div class="ar" aria-hidden="true">→</div>
-          <div class="box b3"><b>스프레드시트</b><span>저장소<br>기록이 쌓이는 곳</span></div>
+          <div class="box b3"><b>Hoja de cálculo</b><span>Almacén<br>Donde se acumulan los récords<small class="ko">스프레드시트 · 기록이 쌓이는 곳</small></span></div>
         </div>
-        <p class="note">Code.gs는 자바스크립트로 쓴 파일이에요.</p>
+        <p class="note">Code.gs es un archivo escrito en JavaScript.<span class="ko">Code.gs는 자바스크립트로 쓴 파일이에요.</span></p>
       </div>
     </section>
 
-    <!-- Start: create sheet -->
-    <section class="slide" aria-label="시작하기 (게임)">
+    <!-- Start (game) -->
+    <section class="slide" aria-label="Empezar (juego)">
       <div class="inner">
-        <h2>시작하기 : 스프레드시트 만들기</h2>
+        <h2>Empezar: crear la hoja de cálculo<span class="ko">시작하기 : 스프레드시트 만들기</span></h2>
         <ol class="steps">
-          <li><span>구글 스프레드시트를 새로 만들기</span></li>
-          <li><span>상단 메뉴에서 확장 프로그램 → Apps Script</span></li>
-          <li><span>Code.gs 파일이 열리면 준비 완료</span></li>
+          <li><span>Crea una nueva Hoja de cálculo de Google<span class="ko">구글 스프레드시트를 새로 만들기</span></span></li>
+          <li><span>En el menú: Extensiones → Apps Script<span class="ko">상단 메뉴에서 확장 프로그램 → Apps Script</span></span></li>
+          <li><span>Cuando se abra Code.gs, ¡todo listo!<span class="ko">Code.gs 파일이 열리면 준비 완료</span></span></li>
         </ol>
-        <p class="note">이렇게 열면 스프레드시트와 자동으로 연결됩니다.</p>
+        <p class="note">La hoja <b>Records</b> se crea sola en la primera partida.<span class="ko">첫 게임을 하면 Records 시트가 자동으로 만들어져요.</span></p>
       </div>
     </section>
 
-    <!-- Part 3: ask Gemini (prompt, copy) -->
-    <section class="slide tight" aria-label="게임 Gemini에게 물어보기">
+    <!-- Juego: Code.gs (copy) -->
+    <section class="slide tight" aria-label="Juego Code.gs">
       <div class="inner">
-        <h2>Gemini에게 물어보기</h2>
-        <div class="win wide prompt long scroll">
-          <div class="win-bar"><i></i><i></i><i></i><span>Gemini 프롬프트</span><button class="copy-btn" type="button" data-target="prompt-gemini-game" aria-live="polite">프롬프트 복사</button></div>
-<pre id="prompt-gemini-game">Google Apps Script 웹앱으로 '미사일 피하기' 게임을 만들어 줘. 스프레드시트를 점수 기록용 DB로 써. 파일은 2개야.
+        <h2>Paso 1 · Code.gs<span class="ko">1단계 · Code.gs (게임)</span></h2>
+        <ol class="howto"><li><span>Borra todo lo que hay en <b>Code.gs</b> y pega este código<span class="ko">Code.gs 안의 내용을 모두 지우고 이 코드를 붙여넣기</span></span></li><li><span>Guarda con <b>Ctrl + S</b><span class="ko">Ctrl + S로 저장</span></span></li></ol>
+        <div class="win code">
+          <div class="win-bar"><i></i><i></i><i></i><span>Code.gs · 93 líneas · 93줄</span><button class="copy-btn" type="button" data-target="code-game-gs" aria-live="polite">Copiar · 복사</button></div>
+<pre id="code-game-gs">var SHEET_NAME = 'Records';
+var TOP_N = 10;
 
-[Code.gs]
-- doGet()에서 index.html 열기, 제목 '미사일 피하기', 모바일 viewport 설정
-- '기록' 시트에 점수 저장 (없으면 제목 줄과 함께 자동 생성), 열 : 이름, 점수, 일시
-- saveScore(name, score) : 기록 시트 맨 아래에 한 줄 추가
-- getRanking() : 점수 높은 순으로 상위 10개를 [이름, 점수] 배열로 반환
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('index')
+    .setTitle('Missile Dodge')
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1, user-scalable=no');
+}
 
-[index.html]
-- canvas로 만드는 미사일 피하기 생존 게임
-  - 플레이어는 원 모양 우주선이고, 손가락(또는 마우스)을 움직이면 그 위치를 따라감
-  - 미사일은 화면 상하좌우 바깥에서 계속 나타나 플레이어 쪽으로 날아옴 (완전히 정확히 조준하지 않고 약간의 랜덤한 방향 오차를 줌)
-  - 미사일은 날아가는 중에도 플레이어 위치 쪽으로 서서히 방향을 트는 유도 기능이 있어서 완전히 직선으로만 날아오지 않음
-  - 시간이 지날수록 미사일 속도, 유도 성능, 한 번에 나오는 개수, 생성 빈도가 모두 계속 올라가서 뒤로 갈수록 훨씬 어려워짐 (초반 몇 초만 살짝 여유 있게)
-  - 플레이어와 미사일이 닿으면 즉시 게임 오버
-  - 점수는 생존한 시간에 비례해서 계속 올라감 (예: 0.1초마다 1점)
-- 시작 전 이름 입력창과 '시작' 버튼
-- 화면에 현재 점수와 생존 시간을 실시간으로 표시
-- 게임 오버 시 최종 점수 표시 + google.script.run으로 saveScore(이름, 점수) 호출
-- 게임 오버 화면에 getRanking()으로 받은 순위 TOP 10을 표로 보여주고, '다시하기' 버튼 제공
-- 모바일 터치로도 조작 가능하게, 화면 꽉 차게
-파일별로 코드블록을 나눠서, 설명 없이 코드만 줘.</pre>
+// Works both as a sheet-bound script and as a standalone script
+// (standalone: creates a spreadsheet once and remembers its ID).
+function getSpreadsheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (ss) return ss;
+  var props = PropertiesService.getScriptProperties();
+  var id = props.getProperty('SPREADSHEET_ID');
+  if (id) return SpreadsheetApp.openById(id);
+  ss = SpreadsheetApp.create('Missile Dodge Records');
+  props.setProperty('SPREADSHEET_ID', ss.getId());
+  return ss;
+}
+
+function getSheet_() {
+  var ss = getSpreadsheet_();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_NAME);
+    sheet.appendRow(['Name', 'Time (s)', 'Date']);
+    sheet.setFrozenRows(1);
+    sheet.getRange('A:A').setNumberFormat('@'); // keep names as plain text
+  }
+  return sheet;
+}
+
+// Saves one run and returns the updated ranking plus this player's position.
+function saveTime(name, seconds) {
+  // Strip leading = + - @ so a name can never become a formula.
+  var safeName = String(name || '').replace(/^[\s=+\-@]+/, '').trim().slice(0, 20) || 'Anonymous';
+  var safeTime = Math.max(0, Math.round((Number(seconds) || 0) * 10) / 10);
+
+  var lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    getSheet_().appendRow([safeName, safeTime, new Date()]);
+    SpreadsheetApp.flush();
+  } finally {
+    lock.releaseLock();
+  }
+  return buildRanking_(safeName);
+}
+
+function getRanking() {
+  return buildRanking_(null);
+}
+
+// Best time per player, longest survival first; ties go to whoever got there first.
+function buildRanking_(playerName) {
+  var sheet = getSheet_();
+  var lastRow = sheet.getLastRow();
+  var best = {};
+  if (lastRow &gt;= 2) {
+    var rows = sheet.getRange(2, 1, lastRow - 1, 3).getValues();
+    rows.forEach(function (r) {
+      var name = String(r[0]).trim();
+      var time = Number(r[1]);
+      var at = r[2] instanceof Date ? r[2].getTime() : 0;
+      if (!name || isNaN(time)) return;
+      var cur = best[name];
+      if (!cur || time &gt; cur.time || (time === cur.time &amp;&amp; at &lt; cur.at)) {
+        best[name] = { name: name, time: time, at: at };
+      }
+    });
+  }
+
+  var list = Object.keys(best).map(function (k) { return best[k]; });
+  list.sort(function (a, b) { return b.time - a.time || a.at - b.at; });
+
+  var myRank = 0, myBest = 0;
+  if (playerName) {
+    for (var i = 0; i &lt; list.length; i++) {
+      if (list[i].name === playerName) { myRank = i + 1; myBest = list[i].time; break; }
+    }
+  }
+
+  // Only plain strings/numbers: google.script.run returns null if a Date is included.
+  return {
+    top: list.slice(0, TOP_N).map(function (e) { return { name: e.name, time: e.time }; }),
+    total: list.length,
+    me: playerName || '',
+    myRank: myRank,
+    myBest: myBest
+  };
+}
+</pre>
         </div>
-        <div class="ask-flow">
-          <div class="ask"><span>프롬프트를 복사해서 Gemini에게 물어보기</span></div>
-          <span class="ar" aria-hidden="true">→</span>
-          <div class="ask"><span>나온 코드 2개는 다음 장에서 붙여넣기<small><b>Code.gs</b> → <b>index.html</b> 순서</small></span></div>
+      </div>
+    </section>
+
+    <!-- Juego: index.html (copy) -->
+    <section class="slide tight" aria-label="Juego index.html">
+      <div class="inner">
+        <h2>Paso 2 · index.html<span class="ko">2단계 · index.html (게임)</span></h2>
+        <ol class="howto"><li><span>Botón <b>+</b> junto a Archivos → <b>HTML</b> → nombre: <b>index</b><span class="ko">파일 옆 + 버튼 → HTML → 이름: index</span></span></li><li><span>Borra todo, pega este código y guarda (<b>Ctrl + S</b>)<span class="ko">안을 모두 지우고 이 코드를 붙여넣은 뒤 저장</span></span></li></ol>
+        <div class="win code">
+          <div class="win-bar"><i></i><i></i><i></i><span>index.html · 398 líneas · 398줄</span><button class="copy-btn" type="button" data-target="code-game-html" aria-live="polite">Copiar · 복사</button></div>
+<pre id="code-game-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"&gt;
+&lt;style&gt;
+  :root {
+    --bg: #EEF2F8; --card: #FFFFFF; --line: #DDE3EE; --text: #172033; --muted: #5A6577;
+    --accent: #1A5FD0; --accent-soft: #E6EEFC; --danger: #D93025; --gold: #F2B600;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, 'Segoe UI', 'Malgun Gothic', sans-serif; background: var(--bg); color: var(--text); height: 100vh; height: 100dvh; display: flex; justify-content: center; overflow: hidden; -webkit-tap-highlight-color: transparent; }
+  #app { width: 100%; max-width: 420px; height: 100%; display: flex; flex-direction: column; }
+  .screen { flex: 1; min-height: 0; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px 16px; }
+  .screen.show { display: flex; }
+
+  .card { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 26px 22px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; box-shadow: 0 8px 28px rgba(23, 32, 51, 0.06); max-height: 100%; overflow-y: auto; }
+  .logo { width: 56px; height: 56px; border-radius: 16px; background: var(--accent-soft); display: flex; align-items: center; justify-content: center; font-size: 28px; }
+  h1, h2 { margin: 0; letter-spacing: -0.02em; }
+  h1 { font-size: 26px; }
+  h2 { font-size: 15px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .hint { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+  input { font: inherit; font-size: 16px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: #F8FAFD; color: var(--text); width: 100%; text-align: center; outline: none; transition: border-color .15s, box-shadow .15s; }
+  input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .btn { font: inherit; font-size: 16px; font-weight: 700; padding: 13px 20px; border-radius: 12px; border: 0; background: var(--accent); color: #fff; cursor: pointer; width: 100%; transition: filter .15s, transform .05s; }
+  .btn:hover { filter: brightness(1.08); }
+  .btn:active { transform: scale(0.98); }
+  .btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); font-weight: 600; }
+  .btn-row { display: flex; gap: 10px; width: 100%; }
+
+  /* Leaderboard */
+  .board { width: 100%; text-align: left; }
+  .board-head { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 4px 6px; }
+  .board ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .board li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 10px; background: #F8FAFD; font-size: 14px; }
+  .board li.me { background: var(--accent-soft); outline: 1px solid var(--accent); }
+  .board .rk { width: 24px; text-align: center; font-weight: 700; color: var(--muted); flex: none; }
+  .board .nm { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+  .board .tm { font-variant-numeric: tabular-nums; font-weight: 700; }
+  .board .msg { padding: 14px; text-align: center; color: var(--muted); font-size: 14px; background: #F8FAFD; border-radius: 10px; }
+  .board .msg.err { color: var(--danger); }
+
+  /* Game */
+  #gameScreen { justify-content: flex-start; gap: 10px; padding: 14px 16px 16px; }
+  #hud { flex: none; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+  .pill { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .pill b { color: var(--text); font-size: 18px; }
+  #stage { flex: 1; min-height: 0; width: 100%; display: flex; align-items: center; justify-content: center; }
+  canvas { display: block; touch-action: none; background: #FBFCFE; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 8px 28px rgba(23, 32, 51, 0.06); cursor: crosshair; }
+
+  /* Game over */
+  .big-time { font-size: 56px; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1; }
+  .big-time small { font-size: 22px; color: var(--muted); font-weight: 700; margin-left: 2px; }
+  #rankLine { margin: 0; font-size: 14px; color: var(--muted); min-height: 1.4em; }
+  #rankLine strong { color: var(--accent); }
+  .badge { display: none; font-size: 12px; font-weight: 700; color: #7A5B00; background: #FFF4CC; border-radius: 999px; padding: 4px 10px; }
+  .badge.show { display: inline-block; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="app"&gt;
+
+  &lt;div id="startScreen" class="screen show"&gt;
+    &lt;div class="card"&gt;
+      &lt;div class="logo"&gt;🚀&lt;/div&gt;
+      &lt;h1&gt;Missile Dodge&lt;/h1&gt;
+      &lt;p class="hint"&gt;Drag to move your ship and dodge the missiles.&lt;br&gt;The longer you survive, the higher you rank.&lt;/p&gt;
+      &lt;input id="nameInput" placeholder="Enter your name" maxlength="10" autocomplete="off"&gt;
+      &lt;button id="startBtn" class="btn"&gt;Start&lt;/button&gt;
+      &lt;div class="board"&gt;
+        &lt;div class="board-head"&gt;&lt;span&gt;🏆 Top survivors&lt;/span&gt;&lt;span id="startTotal"&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;ol id="startBoard"&gt;&lt;li class="msg"&gt;Loading ranking…&lt;/li&gt;&lt;/ol&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div id="gameScreen" class="screen"&gt;
+    &lt;div id="hud"&gt;
+      &lt;span class="pill"&gt;⏱ &lt;b id="timeLabel"&gt;0.0&lt;/b&gt; s&lt;/span&gt;
+      &lt;span class="pill" id="bestPill"&gt;Best &lt;b id="bestLabel"&gt;–&lt;/b&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div id="stage"&gt;&lt;canvas id="canvas" width="340" height="520"&gt;&lt;/canvas&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div id="overScreen" class="screen"&gt;
+    &lt;div class="card"&gt;
+      &lt;h2&gt;Game Over&lt;/h2&gt;
+      &lt;div class="big-time"&gt;&lt;span id="finalTime"&gt;0.0&lt;/span&gt;&lt;small&gt;s&lt;/small&gt;&lt;/div&gt;
+      &lt;span id="bestBadge" class="badge"&gt;✨ New personal best&lt;/span&gt;
+      &lt;p id="rankLine"&gt;&lt;/p&gt;
+      &lt;div class="board"&gt;
+        &lt;div class="board-head"&gt;&lt;span&gt;🏆 Top survivors&lt;/span&gt;&lt;span id="overTotal"&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;ol id="overBoard"&gt;&lt;/ol&gt;
+      &lt;/div&gt;
+      &lt;div class="btn-row"&gt;
+        &lt;button id="menuBtn" class="btn ghost"&gt;Menu&lt;/button&gt;
+        &lt;button id="retryBtn" class="btn"&gt;Play Again&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;script&gt;
+(function () {
+  var W = 340, H = 520;
+  var PLAYER_R = 11, MISSILE_R = 6;
+  var START_INTERVAL = 750, MIN_INTERVAL = 90, INTERVAL_DECAY_PER_SEC = 25;
+  var START_SPEED = 120, MAX_SPEED = 520, SPEED_GROWTH_PER_SEC = 14;
+  var START_HOMING = 0.4, MAX_HOMING = 2.2, HOMING_GROWTH_PER_SEC = 0.05;
+  var MAX_SPAWN_PER_WAVE = 4;
+
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+  var stage = document.getElementById('stage');
+  var nameInput = document.getElementById('nameInput');
+
+  function fitCanvas() {
+    var scale = Math.max(0.1, Math.min(stage.clientWidth / W, stage.clientHeight / H));
+    canvas.style.width = Math.floor(W * scale) + 'px';
+    canvas.style.height = Math.floor(H * scale) + 'px';
+  }
+  window.addEventListener('resize', fitCanvas);
+
+  var player = { x: W / 2, y: H - 60, r: PLAYER_R };
+  var missiles = [];
+  var elapsed = 0;
+  var spawnTimer = 0;
+  var spawnInterval = START_INTERVAL;
+  var missileSpeed = START_SPEED;
+  var homingRate = START_HOMING;
+  var playerName = '';
+  var personalBest = 0;
+  var running = false;
+  var lastTime = null;
+
+  // Remember the last name used on this device (storage may be unavailable).
+  try { nameInput.value = localStorage.getItem('md-name') || ''; } catch (e) {}
+
+  function clampPlayer() {
+    player.x = Math.max(PLAYER_R, Math.min(W - PLAYER_R, player.x));
+    player.y = Math.max(PLAYER_R, Math.min(H - PLAYER_R, player.y));
+  }
+  function pointerPos(evt) {
+    var rect = canvas.getBoundingClientRect();
+    var t = evt.touches ? evt.touches[0] : evt;
+    var scaleX = canvas.width / rect.width;
+    var scaleY = canvas.height / rect.height;
+    return { x: (t.clientX - rect.left) * scaleX, y: (t.clientY - rect.top) * scaleY };
+  }
+  function movePlayerTo(evt) {
+    var p = pointerPos(evt);
+    player.x = p.x; player.y = p.y;
+    clampPlayer();
+  }
+  canvas.addEventListener('mousedown', movePlayerTo);
+  canvas.addEventListener('mousemove', function (e) { if (running) movePlayerTo(e); });
+  canvas.addEventListener('touchstart', function (e) { movePlayerTo(e); }, { passive: true });
+  canvas.addEventListener('touchmove', function (e) { e.preventDefault(); movePlayerTo(e); }, { passive: false });
+
+  function spawnMissile() {
+    var edge = Math.floor(Math.random() * 4);
+    var x, y;
+    if (edge === 0) { x = Math.random() * W; y = -20; }
+    else if (edge === 1) { x = W + 20; y = Math.random() * H; }
+    else if (edge === 2) { x = Math.random() * W; y = H + 20; }
+    else { x = -20; y = Math.random() * H; }
+    var angle = Math.atan2(player.y - y, player.x - x) + (Math.random() - 0.5) * 0.7;
+    missiles.push({
+      x: x, y: y, r: MISSILE_R,
+      vx: Math.cos(angle) * missileSpeed,
+      vy: Math.sin(angle) * missileSpeed,
+      trail: []
+    });
+  }
+
+  function updateHud() {
+    document.getElementById('timeLabel').textContent = (elapsed / 1000).toFixed(1);
+  }
+
+  function showScreen(id) {
+    ['startScreen', 'gameScreen', 'overScreen'].forEach(function (s) {
+      document.getElementById(s).classList.toggle('show', s === id);
+    });
+  }
+
+  /* ---------- Ranking ---------- */
+
+  function renderBoard(listId, totalId, data) {
+    var top = (data &amp;&amp; data.top) || [];
+    var medals = ['🥇', '🥈', '🥉'];
+    var html = '';
+    top.forEach(function (row, i) {
+      var me = data.me &amp;&amp; row.name === data.me;
+      html += '&lt;li' + (me ? ' class="me"' : '') + '&gt;' +
+        '&lt;span class="rk"&gt;' + (medals[i] || (i + 1)) + '&lt;/span&gt;' +
+        '&lt;span class="nm"&gt;' + escapeHtml(row.name) + (me ? ' (you)' : '') + '&lt;/span&gt;' +
+        '&lt;span class="tm"&gt;' + Number(row.time).toFixed(1) + 's&lt;/span&gt;&lt;/li&gt;';
+    });
+    if (!top.length) html = '&lt;li class="msg"&gt;No records yet. Be the first!&lt;/li&gt;';
+    document.getElementById(listId).innerHTML = html;
+    document.getElementById(totalId).textContent = data &amp;&amp; data.total ? data.total + ' players' : '';
+  }
+
+  function boardMessage(listId, msg, isError) {
+    document.getElementById(listId).innerHTML =
+      '&lt;li class="msg' + (isError ? ' err' : '') + '"&gt;' + escapeHtml(msg) + '&lt;/li&gt;';
+  }
+
+  function loadStartRanking() {
+    boardMessage('startBoard', 'Loading ranking…');
+    google.script.run
+      .withSuccessHandler(function (data) { renderBoard('startBoard', 'startTotal', data); })
+      .withFailureHandler(function (err) { boardMessage('startBoard', 'Could not load ranking: ' + err.message, true); })
+      .getRanking();
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&amp;&lt;&gt;"']/g, function (c) {
+      return { '&amp;': '&amp;amp;', '&lt;': '&amp;lt;', '&gt;': '&amp;gt;', '"': '&amp;quot;', "'": '&amp;#39;' }[c];
+    });
+  }
+
+  /* ---------- Game flow ---------- */
+
+  function startGame() {
+    playerName = nameInput.value.trim().slice(0, 10) || 'Anonymous';
+    try { localStorage.setItem('md-name', playerName); } catch (e) {}
+    missiles = []; elapsed = 0; spawnTimer = START_INTERVAL;
+    missileSpeed = START_SPEED; homingRate = START_HOMING;
+    player.x = W / 2; player.y = H - 60;
+    document.getElementById('bestLabel').textContent = personalBest ? personalBest.toFixed(1) : '–';
+    updateHud();
+    showScreen('gameScreen');
+    fitCanvas();
+    draw();
+    running = true; lastTime = null;
+    requestAnimationFrame(loop);
+  }
+
+  function endGame() {
+    running = false;
+    var seconds = Math.round(elapsed / 100) / 10;
+    var isBest = seconds &gt; personalBest;
+    if (isBest) personalBest = seconds;
+
+    document.getElementById('finalTime').textContent = seconds.toFixed(1);
+    document.getElementById('bestBadge').classList.toggle('show', isBest &amp;&amp; seconds &gt; 0);
+    document.getElementById('rankLine').textContent = 'Saving your record…';
+    document.getElementById('overTotal').textContent = '';
+    boardMessage('overBoard', 'Loading ranking…');
+    showScreen('overScreen');
+
+    // Save first, then show the ranking that the save returns — so your run is always included.
+    google.script.run
+      .withSuccessHandler(function (data) {
+        renderBoard('overBoard', 'overTotal', data);
+        if (data &amp;&amp; data.myBest) personalBest = Math.max(personalBest, data.myBest);
+        document.getElementById('rankLine').innerHTML = data &amp;&amp; data.myRank
+          ? escapeHtml(data.me) + ' is ranked &lt;strong&gt;#' + data.myRank + '&lt;/strong&gt; of ' + data.total +
+            ' · best ' + Number(data.myBest).toFixed(1) + 's'
+          : '';
+      })
+      .withFailureHandler(function (err) {
+        document.getElementById('rankLine').textContent = '';
+        boardMessage('overBoard', 'Could not save your record: ' + err.message, true);
+      })
+      .saveTime(playerName, seconds);
+  }
+
+  function step(dt) {
+    elapsed += dt;
+    var elapsedSec = elapsed / 1000;
+    var dtSec = dt / 1000;
+
+    spawnInterval = Math.max(MIN_INTERVAL, START_INTERVAL - elapsedSec * INTERVAL_DECAY_PER_SEC);
+    missileSpeed = Math.min(MAX_SPEED, START_SPEED + elapsedSec * SPEED_GROWTH_PER_SEC);
+    homingRate = Math.min(MAX_HOMING, START_HOMING + elapsedSec * HOMING_GROWTH_PER_SEC);
+
+    spawnTimer -= dt;
+    if (spawnTimer &lt;= 0) {
+      var count = Math.min(MAX_SPAWN_PER_WAVE, 1 + Math.floor(elapsedSec / 10));
+      for (var c = 0; c &lt; count; c++) spawnMissile();
+      spawnTimer = spawnInterval;
+    }
+
+    for (var i = missiles.length - 1; i &gt;= 0; i--) {
+      var m = missiles[i];
+      var desired = Math.atan2(player.y - m.y, player.x - m.x);
+      var cur = Math.atan2(m.vy, m.vx);
+      var diff = Math.atan2(Math.sin(desired - cur), Math.cos(desired - cur));
+      var maxTurn = homingRate * dtSec;
+      var turn = Math.max(-maxTurn, Math.min(maxTurn, diff));
+      var newAngle = cur + turn;
+      var spd = Math.hypot(m.vx, m.vy);
+      m.vx = Math.cos(newAngle) * spd;
+      m.vy = Math.sin(newAngle) * spd;
+      m.trail.push({ x: m.x, y: m.y });
+      if (m.trail.length &gt; 8) m.trail.shift();
+      m.x += m.vx * dtSec;
+      m.y += m.vy * dtSec;
+
+      if (m.x &lt; -40 || m.x &gt; W + 40 || m.y &lt; -40 || m.y &gt; H + 40) {
+        missiles.splice(i, 1);
+        continue;
+      }
+      var dx = m.x - player.x, dy = m.y - player.y;
+      if (Math.hypot(dx, dy) &lt; m.r + player.r) {
+        draw();
+        endGame();
+        return;
+      }
+    }
+
+    updateHud();
+  }
+
+  /* ---------- Drawing ---------- */
+
+  function drawGrid() {
+    ctx.strokeStyle = '#EDF1F7';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (var x = 20; x &lt; W; x += 20) { ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, H); }
+    for (var y = 20; y &lt; H; y += 20) { ctx.moveTo(0, y + 0.5); ctx.lineTo(W, y + 0.5); }
+    ctx.stroke();
+  }
+
+  function drawPlayer() {
+    ctx.beginPath();
+    ctx.arc(player.x, player.y, player.r + 7, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(26, 95, 208, 0.12)';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(player.x, player.y, player.r, 0, Math.PI * 2);
+    ctx.fillStyle = '#1A5FD0';
+    ctx.fill();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.stroke();
+  }
+
+  function drawMissile(m) {
+    for (var t = 0; t &lt; m.trail.length; t++) {
+      var p = m.trail[t];
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 1 + t * 0.3, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(217, 48, 37, ' + (0.04 + t * 0.03) + ')';
+      ctx.fill();
+    }
+    var angle = Math.atan2(m.vy, m.vx);
+    ctx.save();
+    ctx.translate(m.x, m.y);
+    ctx.rotate(angle);
+    ctx.beginPath();
+    ctx.moveTo(m.r * 1.7, 0);
+    ctx.lineTo(-m.r, m.r * 0.8);
+    ctx.lineTo(-m.r * 0.4, 0);
+    ctx.lineTo(-m.r, -m.r * 0.8);
+    ctx.closePath();
+    ctx.fillStyle = '#D93025';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    drawGrid();
+    missiles.forEach(drawMissile);
+    drawPlayer();
+  }
+
+  function loop(ts) {
+    if (!running) return;
+    if (lastTime === null) lastTime = ts;
+    var dt = Math.min(33, ts - lastTime);
+    lastTime = ts;
+    step(dt);
+    if (running) {
+      draw();
+      requestAnimationFrame(loop);
+    }
+  }
+
+  document.getElementById('startBtn').addEventListener('click', startGame);
+  nameInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') startGame(); });
+  document.getElementById('retryBtn').addEventListener('click', startGame);
+  document.getElementById('menuBtn').addEventListener('click', function () {
+    showScreen('startScreen');
+    loadStartRanking();
+  });
+
+  loadStartRanking();
+})();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
         </div>
-      </div>
-    </section>
-
-    <!-- Make Code.gs (game) -->
-    <section class="slide" aria-label="Code.gs 만들기 (게임)">
-      <div class="inner">
-        <h2>Code.gs 만들기</h2>
-        <ol class="steps">
-          <li><span>Gemini가 준 <b>Code.gs</b> 코드를 복사해서, 안을 지우고 붙여 넣기</span></li>
-          <li><span>저장하기 (Ctrl + S)</span></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- Make index.html (game) -->
-    <section class="slide" aria-label="index.html 만들기 (게임)">
-      <div class="inner">
-        <h2>index.html 만들기</h2>
-        <ol class="steps">
-          <li><span>왼쪽 파일 옆 + 버튼 → HTML</span></li>
-          <li><span>이름을 index로 정하기</span></li>
-          <li><span>Gemini가 준 <b>index.html</b> 코드를 복사해서, 안을 지우고 붙여 넣기</span></li>
-        </ol>
-        <p class="note">이름은 꼭 <b>index.html</b>로 해야 합니다. Code.gs가 이 이름으로 화면을 찾아요.</p>
       </div>
     </section>
 
     <!-- Deploy (game) -->
-    <section class="slide" aria-label="배포하기 (게임)">
+    <section class="slide" aria-label="Publicar el juego">
       <div class="inner">
-        <h2>배포하기</h2>
+        <h2>Publicar<span class="ko">배포하기</span></h2>
         <ol class="steps">
-          <li><span>배포 → 새 배포 → 웹 앱 (설정은 실습 1과 동일)</span></li>
-          <li><span>스프레드시트 접근 권한 승인</span></li>
-          <li><span>주소(URL)를 학생에게 공유</span></li>
+          <li><span>Implementar → Nueva implementación → Aplicación web (igual que en la Práctica 1)<span class="ko">배포 → 새 배포 → 웹 앱 (설정은 실습 1과 동일)</span></span></li>
+          <li><span>Autoriza el acceso a la hoja de cálculo<span class="ko">스프레드시트 접근 권한 승인</span></span></li>
+          <li><span>Comparte la URL con tus estudiantes<span class="ko">주소(URL)를 학생에게 공유</span></span></li>
         </ol>
-        <p class="note">코드를 고친 뒤에는 새 버전으로 다시 배포합니다.</p>
+        <p class="note">Si cambias el código: Administrar implementaciones → Editar → <b>Nueva versión</b>.<span class="ko">코드를 고친 뒤에는 배포 관리 → 수정 → 새 버전으로 다시 배포합니다.</span></p>
       </div>
     </section>
 
     <!-- Sharing settings (game) -->
-    <section class="slide" aria-label="공유 설정 확인 (게임)">
+    <section class="slide" aria-label="Permisos para compartir (juego)">
       <div class="inner">
-        <h2>공유 설정 확인</h2>
+        <h2>Revisa los permisos<span class="ko">공유 설정 확인</span></h2>
         <div class="rows">
-          <div class="row"><h3>스프레드시트</h3><p>나만 접근 (일반 액세스: 제한됨)</p></div>
-          <div class="row"><h3>학생</h3><p>웹앱 주소로만 접속 (시트 권한 불필요)</p></div>
-          <div class="row"><h3>웹앱 액세스</h3><p>모든 사용자</p></div>
+          <div class="row"><h3>Hoja de cálculo<span class="ko">스프레드시트</span></h3><p>Solo tú (Acceso general: Restringido)<span class="ko">나만 접근 (일반 액세스: 제한됨)</span></p></div>
+          <div class="row"><h3>Estudiantes<span class="ko">학생</span></h3><p>Entran solo por la URL de la app (sin permiso en la hoja)<span class="ko">웹앱 주소로만 접속 (시트 권한 불필요)</span></p></div>
+          <div class="row"><h3>Acceso a la app<span class="ko">웹앱 액세스</span></h3><p>Cualquier usuario<span class="ko">모든 사용자</span></p></div>
         </div>
       </div>
     </section>
 
-    <!-- 12. Start -->
-    <section class="slide" aria-label="마무리">
+    <!-- End -->
+    <section class="slide" aria-label="Final">
       <div class="inner">
-        <h2>지금 바로 해 보세요</h2>
+        <h2>¡Pruébalo ahora!<span class="ko">지금 바로 해 보세요</span></h2>
         <a class="link-box" href="https://script.google.com" target="_blank" rel="noopener">script.google.com</a>
       </div>
     </section>
@@ -936,12 +1986,12 @@
   </div>
 </main>
 
-<nav class="ctl" aria-label="슬라이드 이동">
-  <button id="prev" type="button" aria-label="이전 슬라이드">이전</button>
+<nav class="ctl" aria-label="Navegación de diapositivas">
+  <button id="prev" type="button" aria-label="Diapositiva anterior">Anterior · 이전</button>
   <div class="bar" aria-hidden="true"><i id="prog"></i></div>
-  <span class="count" id="count" aria-live="polite">1 / 10</span>
-  <button id="next" type="button" aria-label="다음 슬라이드">다음</button>
-  <button class="theme" id="theme" type="button" aria-label="밝게 또는 어둡게 전환">화면 모드</button>
+  <span class="count" id="count" aria-live="polite"></span>
+  <button id="next" type="button" aria-label="Diapositiva siguiente">Siguiente · 다음</button>
+  <button class="theme" id="theme" type="button" aria-label="Cambiar tema claro u oscuro">Tema · 화면 모드</button>
 </nav>
 
 <script>
@@ -1029,7 +2079,7 @@
           sel.removeAllRanges();
           sel.addRange(r);
         }
-        btn.textContent = ok ? '복사됨 ✓' : '자동 복사 실패 · Ctrl+C';
+        btn.textContent = ok ? '¡Copiado! ✓ · 복사됨' : 'Copia con Ctrl+C · 직접 복사';
         btn.classList.toggle('done', ok);
         clearTimeout(btn._t);
         btn._t = setTimeout(function () {
