@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 바이브코딩 시대 교사의 역할</title>
+<title>El rol docente en la era del vibe coding con IA</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
   <span class="actions left">
-    <a href="index.html" class="home">← 목록</a>
+    <a href="index.html" class="home">← Lista<span class="ko">목록</span></a>
   </span>
-  <span class="title">AI기반 바이브코딩 시대의 교사역할과 교수학습설계</span>
+  <span class="title">El rol docente y el diseño de la enseñanza en la era del vibe coding con IA<span class="ko">AI기반 바이브코딩 시대의 교사역할과 교수학습설계</span></span>
   <span class="actions">
-    <button id="present" type="button">▶ 발표 모드</button>
-    <a href="slides.pdf" download>PDF</a>
+    <button id="present" type="button">▶ Presentar<span class="ko">발표 모드</span></button>
+    <a href="slides.pdf" download>PDF<span class="ko">내려받기</span></a>
   </span>
 </header>
 
@@ -23,9 +23,9 @@
 <div id="viewer" hidden>
   <img id="vimg" alt="">
   <span id="count"></span>
-  <button class="nav prev" type="button" aria-label="이전">‹</button>
-  <button class="nav next" type="button" aria-label="다음">›</button>
-  <button class="close" type="button" aria-label="닫기">✕</button>
+  <button class="nav prev" type="button" aria-label="Anterior">‹</button>
+  <button class="nav next" type="button" aria-label="Siguiente">›</button>
+  <button class="close" type="button" aria-label="Cerrar">✕</button>
 </div>
 
 <script>
@@ -35,7 +35,7 @@ const deck = document.getElementById('deck');
 for (let i = 1; i <= TOTAL; i++) {
   const fig = document.createElement('figure');
   fig.id = `s${i}`;
-  fig.innerHTML = `<img src="${src(i)}" alt="슬라이드 ${i}" loading="${i < 3 ? 'eager' : 'lazy'}" width="1920" height="1080"><figcaption>${i} / ${TOTAL}</figcaption>`;
+  fig.innerHTML = `<img src="${src(i)}" alt="Diapositiva ${i}" loading="${i < 3 ? 'eager' : 'lazy'}" width="1920" height="1080"><figcaption>${i} / ${TOTAL}</figcaption>`;
   fig.addEventListener('click', () => open(i));
   deck.appendChild(fig);
 }
@@ -48,7 +48,7 @@ let cur = 1;
 function show(i) {
   cur = Math.min(TOTAL, Math.max(1, i));
   vimg.src = src(cur);
-  vimg.alt = `슬라이드 ${cur}`;
+  vimg.alt = `Diapositiva ${cur}`;
   count.textContent = `${cur} / ${TOTAL}`;
   if (cur < TOTAL) new Image().src = src(cur + 1);
 }
